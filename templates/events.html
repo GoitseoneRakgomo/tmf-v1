@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Events & Dialogues - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/e2.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Events & Dialogues</p>
+      <h1>Mobilizing Communities, Fostering Dialogue & Driving Democratic Action</h1>
+    </div>
+  </div>
+</header>
+
+<!-- Upcoming Events Section -->
+<section class="sec animate-up">
+  <div class="wrap">
+    <div class="prose" style="text-align: center; max-width: 750px; margin: 0 auto 3rem auto;">
+      <p class="eyebrow">Join the Conversation</p>
+      <h2>Upcoming Events</h2>
+      <p>Participate in our upcoming summits, policy roundtables, and community dialogues focused on ethical leadership and constitutional democracy.</p>
+    </div>
+
+    <div class="grid c2" style="gap: 2rem;">
+      <!-- Event Card 1 -->
+      <div class="card" style="padding: 2rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 220px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/e1.jfif') }}" alt="Annual Democracy Summit" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow" style="color: var(--teal);">October 15, 2026 · Johannesburg</p>
+          <h3>Annual Social Justice & Democracy Summit</h3>
+          <p style="color: var(--mid); margin-top: 0.5rem;">Bringing together civil society, policymakers, and academics to evaluate democratic resilience and actionable social justice frameworks.</p>
+        </div>
+        <div style="margin-top: 1.5rem;">
+          <a class="btn" href="/contact" style="font-size: 0.9rem; padding: 0.6rem 1.25rem;">Register to Attend</a>
+        </div>
+      </div>
+
+      <!-- Event Card 2 -->
+      <div class="card" style="padding: 2rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 220px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/l4.jfif') }}" alt="Youth Leadership Roundtable" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow" style="color: var(--teal);">November 08, 2026 · Virtual / Hybrid</p>
+          <h3>Youth Leadership & Civic Action Dialogue</h3>
+          <p style="color: var(--mid); margin-top: 0.5rem;">An interactive masterclass empowering young leaders with practical toolkits for community organizing, policy advocacy, and ethical governance.</p>
+        </div>
+        <div style="margin-top: 1.5rem;">
+          <a class="btn" href="/contact" style="font-size: 0.9rem; padding: 0.6rem 1.25rem;">Reserve Your Spot</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Flagship Convenings Section -->
+<section class="sec dark animate-up">
+  <div class="wrap">
+    <div class="grid split" style="grid-template-columns: 1.2fr 1fr; align-items: center; gap: 3rem;">
+      <div class="prose">
+        <p class="eyebrow" style="color: var(--teal);">Flagship Formats</p>
+        <h2 style="color: var(--white);">Democracy Dialogues & Masterclasses</h2>
+        <p style="color: #d7dede;">Our convenings serve as non-partisan platforms where diverse voices converge to address systemic governance challenges and formulate actionable policy solutions.</p>
+        <ul style="color: #d7dede; margin: 1.5rem 0; padding-left: 1.2rem; line-height: 1.8;">
+          <li><strong>Policy Roundtables:</strong> High-level discussions with institutional decision-makers.</li>
+          <li><strong>Community Town Halls:</strong> Grassroots dialogues translating constitutional rights into local action.</li>
+          <li><strong>Ethical Leadership Workshops:</strong> Practical capacity-building seminars for civic leaders.</li>
+        </ul>
+      </div>
+      <div class="image-block">
+        <img src="{{ url_for('static', filename='images/c1.jfif') }}" alt="Foundation Conference" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Past Events & Highlights Section -->
+<section class="sec grey animate-up">
+  <div class="wrap">
+    <div class="prose" style="text-align: center; max-width: 750px; margin: 0 auto 3rem auto;">
+      <p class="eyebrow">Highlights & Archives</p>
+      <h2>Past Gatherings & Highlights</h2>
+      <p>Explore recaps and key outcomes from our previous community forums and leadership convenings.</p>
+    </div>
+
+    <div class="grid c3" style="gap: 2rem;">
+      <!-- Past Event 1 -->
+      <div class="card" style="padding: 1.5rem; background: var(--white);">
+        <div class="card-img-wrap" style="height: 180px; margin-bottom: 1rem; overflow: hidden; border-radius: 6px;">
+          <img src="{{ url_for('static', filename='images/community1.jfif') }}" alt="Grassroots Townhall" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <p class="eyebrow">August 2026</p>
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Grassroots Civic Literacy Campaign</h3>
+        <p style="font-size: 0.9rem; color: var(--mid);">A community-centered workshop focused on educating citizens about constitutional protections.</p>
+      </div>
+
+      <!-- Past Event 2 -->
+      <div class="card" style="padding: 1.5rem; background: var(--white);">
+        <div class="card-img-wrap" style="height: 180px; margin-bottom: 1rem; overflow: hidden; border-radius: 6px;">
+          <img src="{{ url_for('static', filename='images/le1.jfif') }}" alt="Ethics Forum" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <p class="eyebrow">June 2026</p>
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">National Ethics in Governance Forum</h3>
+        <p style="font-size: 0.9rem; color: var(--mid);">Keynote address and expert panel on restoring integrity within public administration.</p>
+      </div>
+
+      <!-- Past Event 3 -->
+      <div class="card" style="padding: 1.5rem; background: var(--white);">
+        <div class="card-img-wrap" style="height: 180px; margin-bottom: 1rem; overflow: hidden; border-radius: 6px;">
+          <img src="{{ url_for('static', filename='images/a1.jfif') }}" alt="Youth Summit" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <p class="eyebrow">March 2026</p>
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Youth Democracy Convention</h3>
+        <p style="font-size: 0.9rem; color: var(--mid);">Over 300 delegates gathered to deliberate on constitutional accountability and youth participation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a4.jfif') }}'); min-height: 35vh;">
+  <div class="wrap" style="text-align: center;">
+    <div class="banner-content animate-up" style="max-width: 700px; margin: 0 auto; padding: 2rem 0;">
+      <h2>Host or Partner on an Event</h2>
+      <p style="margin: 1rem 0 1.5rem 0; font-size: 1.1rem; color: rgba(255,255,255,0.9);">Interested in collaborating with the Foundation or inviting our team for a keynote or panel discussion?</p>
+      <a class="btn" href="/contact">Get in Touch</a>
+    </div>
+  </div>
+</header>
+
+{% endblock %}

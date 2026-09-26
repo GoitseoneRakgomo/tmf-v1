@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Contact Us - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a4.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Get In Touch</p>
+      <h1>We Would Love to Hear From You</h1>
+    </div>
+  </div>
+</header>
+
+<!-- Enquiry Routing Section -->
+<section class="sec animate-up">
+  <div class="wrap">
+    <div class="prose" style="text-align: center; max-width: 750px; margin: 0 auto 3rem auto;">
+      <p class="eyebrow">Direct Communications</p>
+      <h2>Route Your Enquiry</h2>
+      <p>Select the appropriate department below to ensure your message reaches the right team efficiently.</p>
+    </div>
+
+    <div class="grid c2" style="gap: 2rem;">
+      {% for key, label, mail in routes %}
+      <div class="card{{ ' hot' if route == key }}" style="padding: 2rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between; border-radius: 6px; border: 1px solid rgba(0,0,0,0.06);">
+        <div>
+          <p class="eyebrow" style="margin-bottom: 0.5rem; font-size: 0.85rem;">Department</p>
+          <h3 style="margin-bottom: 1rem;">{{ label }}</h3>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a href="mailto:{{ mail }}@domain.org.za" style="color: var(--teal); font-weight: 600; text-decoration: none; word-break: break-all;">
+            {{ mail }}@domain.org.za &rarr;
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Location & Official Channels Section -->
+<section class="sec grey animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1fr 1fr; align-items: stretch; gap: 3rem;">
+    <!-- Registered Address Card -->
+    <div class="card" style="padding: 2.5rem; background: var(--white); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="prose">
+        <p class="eyebrow">Headquarters</p>
+        <h2>Registered Address</h2>
+        <p style="font-size: 1.1rem; font-weight: 500; margin-top: 1rem; color: var(--dark); line-height: 1.6;">
+          430 Lea Street<br>
+          Waterkloof Glen<br>
+          Pretoria, South Africa
+        </p>
+      </div>
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.08);">
+        <p class="meta" style="font-size: 0.9rem; color: var(--mid); margin: 0;">
+          <strong>Notice:</strong> Our official domain and social handles are listed here. We do not operate from any other physical address or unverified digital channel.
+        </p>
+      </div>
+    </div>
+
+    <!-- Operating Hours & Press Card -->
+    <div class="card" style="padding: 2.5rem; background: var(--white); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="prose">
+        <p class="eyebrow">Engagement</p>
+        <h2>Hours & Support</h2>
+        <p style="color: var(--mid);">For press inquiries, media interviews, or general institutional questions, please reach out via our dedicated department channels.</p>
+        <ul style="list-style: none; padding: 0; margin: 1.5rem 0; line-height: 2; color: var(--dark);">
+          <li><strong>Office Hours:</strong> Monday – Friday, 08:30 – 16:30 SAST</li>
+          <li><strong>Standard Response Time:</strong> 1–2 business days</li>
+        </ul>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <a class="btn" href="mailto:info@domain.org.za">General Information</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

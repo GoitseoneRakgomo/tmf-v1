@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}PAIA Manual - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a3.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Transparency & Governance</p>
+      <h1>PAIA Manual & Information Access</h1>
+    </div>
+  </div>
+</header>
+
+<!-- PAIA Content Section -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
+    <div class="prose">
+      <h2>Promotion of Access to Information Act (PAIA)</h2>
+      <p>In accordance with Section 51 of the Promotion of Access to Information Act 2 of 2000 (PAIA), this manual details the records held by the Thuli Madonsela Foundation Trust and the procedures for requesting access.</p>
+
+      <h3 style="margin-top: 2rem;">1. Foundation Details</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2; color: var(--mid);">
+        <li><strong>Entity Name:</strong> Thuli Madonsela Foundation Trust</li>
+        <li><strong>Trust Registration:</strong> IT000570/2017(G)</li>
+        <li><strong>Physical Address:</strong> 430 Lea Street, Waterkloof Glen, Pretoria, South Africa</li>
+      </ul>
+
+      <h3 style="margin-top: 2rem;">2. Categories of Records Held</h3>
+      <p>Subject to the provisions of PAIA and POPIA, the Foundation maintains records in the following categories:</p>
+      <ul style="padding-left: 1.2rem; line-height: 1.8; color: var(--mid);">
+        <li><strong>Institutional Records:</strong> Trust deed, governance policies, and board meeting minutes.</li>
+        <li><strong>Financial Records:</strong> Audited annual financial statements, tax records, and Section 18A receipts.</li>
+        <li><strong>Research & Operational Records:</strong> Publications, policy submissions, and event records.</li>
+      </ul>
+
+      <h3 style="margin-top: 2rem;">3. Requesting Access</h3>
+      <p>To request access to a record, a requester must complete the prescribed Form 2 under PAIA regulations and submit it to our Information Officer via email, accompanied by proof of payment for any applicable request fees.</p>
+    </div>
+
+    <!-- PAIA Contact Box -->
+    <div class="card" style="padding: 2rem; background: var(--white); border-radius: 6px; border: 1px solid rgba(0,0,0,0.06); position: sticky; top: 2rem;">
+      <p class="eyebrow">PAIA Officer</p>
+      <h3 style="margin-bottom: 0.5rem;">Access Requests</h3>
+      <p style="font-size: 0.95rem; color: var(--mid); margin-bottom: 1.5rem;">Submit completed PAIA request forms or inquiries to:</p>
+      <p style="font-size: 0.95rem; line-height: 1.6;">
+        <strong>Email:</strong> <a href="mailto:info@domain.org.za" style="color: var(--teal); text-decoration: none;">info@domain.org.za</a><br>
+        <strong>Subject Line:</strong> PAIA Record Request
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

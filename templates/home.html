@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+
+<!-- 1. Hero -->
+<section class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a1.jfif') }}');">
+  <div class="wrap grid split" style="align-items: center; gap: 3rem;">
+    <div>
+      <p class="eyebrow" style="color: var(--teal)">Think and Action Tank</p>
+      <h1 style="margin-bottom: 1.5rem;">A Think and Action Tank that cultivates Leadership for a Democracy That Works For All</h1>
+      <p>
+        <a class="btn" href="/our-work">Our work</a>
+        <a class="btn alt" href="/insights" style="margin-left: 0.5rem;">Read the latest</a>
+      </p>
+    </div>
+ 
+  </div>
+</section>
+
+<!-- 2. Latest thinking -->
+<section class="sec animate-up">
+  <div class="wrap">
+    <p class="eyebrow">Latest thinking</p>
+    <div class="grid split">
+      <div class="image-block">
+        <img src="{{ url_for('static', filename='images/l1.jfif') }}" alt="Latest thinking lead image" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <div><span class="pill">{{ lead.type|capitalize }}</span></div>
+        <h2 style="margin: 1rem 0;"><a href="{{ lead.url }}">{{ lead.title }}</a></h2>
+        <p class="prose">{{ lead.standfirst }}</p>
+        <p class="meta">{{ lead.author }} · {{ lead.date }} · {{ lead.mins }} min read</p>
+      </div>
+    </div>
+  </div>
+</section>
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/hero3.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">About The Foundation</p>
+      <h1>A Think and Action Tank</h1>
+      <p class="prose">We cultivate Leadership for a Democracy That Works For All, building on the public-service record of Prof. Thuli Madonsela.</p>
+    </div>
+  </div>
+</header>
+<!-- 3. More from Insights -->
+<section class="sec grey animate-up">
+  <div class="wrap">
+    <p class="eyebrow">More from Insights</p>
+    <div class="grid c3">
+      {% for a in insights_more %}
+      <div class="card">
+        <div class="card-img-wrap">
+          <!-- Using placeholder logic: in production, pass the image filename in the loop -->
+          <img src="{{ url_for('static', filename='images/l' ~ loop.index + 1 ~ '.jfif') }}" alt="Insight image">
+        </div>
+        <div class="card-body">
+          <div><span class="pill">{{ a.type|capitalize }}</span></div>
+          <h3 style="margin-top:1rem; flex-grow: 1;"><a href="{{ a.url }}">{{ a.title }}</a></h3>
+          <p class="meta" style="margin-bottom: 0;">{{ a.date }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <p style="margin-top:2rem; text-align: center;"><a class="btn alt" href="/insights">Browse all insights</a></p>
+  </div>
+</section>
+
+<!-- 4. Who we are -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1fr 1.5fr; align-items: center; gap: 3rem;">
+    <div class="image-block">
+        <img src="{{ url_for('static', filename='images/community1.jfif') }}" alt="Thuli Madonsela Foundation community" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="prose">
+      <p class="eyebrow">Who we are</p>
+      <h2>The Foundation</h2>
+      <p>The Thuli Madonsela Foundation is a Think and Action Tank rooted in the public-service record of Prof. Thuli Madonsela. Governed by a dedicated Board of Trustees, our team works to defend the rule of law, cultivate ethical leadership, and build an inclusive society.</p>
+      <p style="margin-top: 1.5rem;">
+        <a class="btn" href="/about">About us</a> 
+        <a class="btn alt" href="/about/governance" style="margin-left: 0.5rem;">Governance</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DARTS: the five pillars -->
+<section class="sec dark animate-up">
+  <div class="wrap">
+    <p class="eyebrow" style="color: var(--teal)">Our Work: The Five Pillars</p>
+    <div class="grid c5">
+      <a class="card" href="/our-work/demologues">
+        <div class="card-img-wrap compact"><img src="{{ url_for('static', filename='images/d1.jfif') }}" alt="Demologues"></div>
+        <div class="card-body">
+          <span class="letter" style="margin-top: -2rem; margin-bottom: 0.5rem; position: relative; z-index: 2; border: 3px solid var(--deep);">D</span>
+          <h3 style="font-size:1rem;">Demologues</h3>
+          <p class="meta" style="color: #6b7777;">Democracy Dialogues and Festivals</p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/advocacy">
+        <div class="card-img-wrap compact"><img src="{{ url_for('static', filename='images/a1.jfif') }}" alt="Advocacy"></div>
+        <div class="card-body">
+          <span class="letter" style="margin-top: -2rem; margin-bottom: 0.5rem; position: relative; z-index: 2; border: 3px solid var(--deep);">A</span>
+          <h3 style="font-size:1rem;">Advocacy, Access</h3>
+          <p class="meta" style="color: #6b7777;">and Education through Democracy4You, Law4You and access facilitation</p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/research">
+        <div class="card-img-wrap compact"><img src="{{ url_for('static', filename='images/e1.jfif') }}" alt="Research"></div>
+        <div class="card-body">
+          <span class="letter" style="margin-top: -2rem; margin-bottom: 0.5rem; position: relative; z-index: 2; border: 3px solid var(--deep);">R</span>
+          <h3 style="font-size:1rem;">Research</h3>
+          <p class="meta" style="color: #6b7777;"></p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/training">
+        <div class="card-img-wrap compact"><img src="{{ url_for('static', filename='images/le1.jfif') }}" alt="Training"></div>
+        <div class="card-body">
+          <span class="letter" style="margin-top: -2rem; margin-bottom: 0.5rem; position: relative; z-index: 2; border: 3px solid var(--deep);">T</span>
+          <h3 style="font-size:1rem;">Training and Technical Support</h3>
+          <p class="meta" style="color: #6b7777;">on EPIC Leadership, Ethics and Governance</p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/sustainable">
+        <div class="card-img-wrap compact"><img src="{{ url_for('static', filename='images/s1.jfif') }}" alt="Sustainable Development"></div>
+        <div class="card-body">
+          <span class="letter" style="margin-top: -2rem; margin-bottom: 0.5rem; position: relative; z-index: 2; border: 3px solid var(--deep);">S</span>
+          <h3 style="font-size:1rem;">Sustainable Development Facilitation</h3>
+          <p class="meta" style="color: #6b7777;">under Siyazakhela - Enterprising Communities</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. What is happening now -->
+<section class="sec animate-up">
+  <div class="wrap">
+    <p class="eyebrow">Happening now</p>
+    <div class="grid c3">
+      <a class="card" href="/get-involved/events">
+        <div class="card-img-wrap"><img src="{{ url_for('static', filename='images/e2.jfif') }}" alt="Democracy Festival"></div>
+        <div class="card-body">
+          <h3>International Democracy Festival</h3>
+          <p class="meta">Upcoming Event · Register</p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/training/epic-leadership">
+        <div class="card-img-wrap"><img src="{{ url_for('static', filename='images/community2.jfif') }}" alt="EPIC Leadership"></div>
+        <div class="card-body">
+          <h3>EPIC Leadership Training</h3>
+          <p class="meta">Open Course · Book Now</p>
+        </div>
+      </a>
+      <a class="card" href="/our-work/campaigns/16daystoremember">
+        <div class="card-img-wrap"><img src="{{ url_for('static', filename='images/hero2.jfif') }}" alt="16 Days To Remember"></div>
+        <div class="card-body">
+          <h3>#16DaysToRemember</h3>
+          <p class="meta">Current Campaign</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Impact in numbers -->
+{% if impact_stats %}
+<section class="sec grey animate-up">
+  <div class="wrap">
+    <p class="eyebrow">Impact in numbers</p>
+    <div class="grid c4">
+      {% for stat in impact_stats %}
+      <div style="text-align: center; padding: 2rem 0;">
+        <p class="stat" style="color: var(--burg); font-size: 3rem; margin-bottom: 0.5rem;">{{ stat.number }}</p>
+        <p class="meta" style="font-weight: 600;">{{ stat.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- 8. From the archive -->
+<section class="sec animate-up">
+  <div class="wrap">
+    <p class="eyebrow">From the archive</p>
+    <div class="grid c2">
+      {% for item in archive_featured %}
+      <div class="card" style="flex-direction: row; align-items: center;">
+        <div class="card-img-wrap" style="width: 150px; height: 150px; border-bottom: none; border-right: 1px solid #d9dedb; flex-shrink: 0;">
+          <img src="{{ url_for('static', filename='images/a' ~ loop.index + 1 ~ '.jfif') }}" alt="Archive item">
+        </div>
+        <div class="card-body" style="padding-left: 1.5rem;">
+          <h3 style="margin-bottom: 0.5rem;"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+          <p class="meta">{{ item.format|capitalize }} · {{ item.date }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 9. Support the work & 10. Newsletter signup -->
+<section class="sec grey animate-up">
+  <div class="wrap grid split" style="gap: 3rem;">
+    <div class="image-block" style="position: relative;">
+      <img src="{{ url_for('static', filename='images/community3.jfif') }}" alt="Support the Foundation" style="width:100%; height:100%; object-fit:cover; position: absolute; inset: 0;">
+      <div style="position: relative; z-index: 2; padding: 3rem; background: linear-gradient(to right, rgba(37, 52, 52, 0.9), rgba(37, 52, 52, 0.4)); color: var(--white); height: 100%; display: flex; flex-direction: column; justify-content: center;">
+        <p class="eyebrow" style="color: var(--teal)">Support the work</p>
+        <h2 style="color: var(--white)">Partner with us</h2>
+        <p style="margin-bottom: 2rem;">Give once, monthly or yearly. Section 18A tax certificates are issued for all eligible contributions to the PBO.</p>
+        <div><a class="btn" href="/get-involved/donate">Donate</a></div>
+      </div>
+    </div>
+    
+    <div class="card" style="border: none; box-shadow: 0 12px 32px rgba(0,0,0,0.08);">
+      <div class="card-body" style="padding: 2.5rem;">
+        <p class="eyebrow">Stay updated</p>
+        <h2 style="margin-bottom: 1.5rem;">Subscribe to the Democracy Dialogues newsletter</h2>
+        <form action="#" method="post">
+          <label for="em">Email</label>
+          <input id="em" type="email" placeholder="your@email.com" style="margin-bottom:1.5rem; padding: 0.85rem;">
+          <button class="btn" style="width:100%; padding: 0.85rem;" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

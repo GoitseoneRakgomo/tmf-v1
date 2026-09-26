@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}{% endblock %} · Thuli Madonsela Foundation</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">{% block head %}{% endblock %}</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap bar">
+<a class="logo" href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Thuli Madonsela Foundation, home"></a>
+<input type="checkbox" id="nav" class="navtoggle" aria-label="Toggle menu"><label for="nav" class="burger" aria-hidden="true">☰</label>
+<nav class="nav" aria-label="Main">{% for name, url, prefix in nav %}<a href="{{ url }}"{% if request.path.startswith(prefix) %} aria-current="page"{% endif %}>{{ name }}</a>{% endfor %}</nav>
+<a class="btn btn-give" href="/get-involved/donate">Donate</a></div></header>
+<main id="main">{% block main %}{% endblock %}</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <!-- Main Footer Layout: 3 Columns -->
+    <div class="grid c3" style="padding-bottom: 2rem;">
+      <!-- Column 1: About -->
+      <div>
+        <h3 class="ftr-heading">ABOUT US</h3>
+        <p style="color: var(--mid); line-height: 1.6;">
+          The Thuli Madonsela Foundation is a Think and Action Tank that cultivates Leadership for a Democracy That Works For All.
+        </p>
+      </div>
+      
+      <!-- Column 2: Navigation Links -->
+      <div>
+        <h3 class="ftr-heading">QUICK LINKS</h3>
+        <ul class="ftr-links">
+          <li><a href="/our-work">Our Work & Programmes</a></li>
+          <li><a href="/insights">Insights & Media</a></li>
+          <li><a href="/get-involved/events">Upcoming Events</a></li>
+          <li><a href="/get-involved/donate">Support the Foundation</a></li>
+          <li><a href="/contact">Contact Enquiries</a></li>
+        </ul>
+      </div>
+      
+      <!-- Column 3: Address -->
+      <div>
+        <h3 class="ftr-heading">OUR ADDRESS</h3>
+        <p style="color: var(--mid); line-height: 1.6; margin-bottom: 1rem;">
+          Thuli Madonsela Foundation<br>
+          430 Lea Street<br>
+          Waterkloof Glen<br>
+          Pretoria, South Africa
+        </p>
+      </div>
+    </div>
+    
+    <!-- Bottom Bar with Divider -->
+    <div class="ftr-bottom">
+      <div class="legal-text">
+        &copy; 2026 Thuli Madonsela Foundation Trust · IT000570/2017(G) · 
+        <a href="/privacy">Privacy</a> · 
+        <a href="/terms">Terms</a> · 
+        <a href="/paia">PAIA</a> · 
+        <a href="/accessibility">Accessibility</a>
+      </div>
+      <a href="#main" class="back-to-top" aria-label="Back to top">
+        <!-- SVG Up Arrow -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<nav class="tabs" aria-label="Quick links"><a href="/">Home</a><a href="/insights">Insights</a><a href="/get-involved/donate">Donate</a><a href="/our-work/training/epic-leadership">Course</a></nav>
+</body></html>

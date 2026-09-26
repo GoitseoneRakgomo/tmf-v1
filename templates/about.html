@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}About the Foundation{% endblock %}
+{% block main %}
+
+
+<!-- Section 1: Why We Exist -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem;">
+    <div class="prose">
+      <p class="eyebrow">Context & Mandate</p>
+      <h2>Why We Exist</h2>
+      <p>The Foundation responds to structural inequality, exclusion from democracy's benefits, and a growing public trust deficit. We address societal polarisation, governance failure, and civic apathy among young people by providing forward-looking thinking about democracy for 21st-century challenges.</p>
+    </div>
+    <div class="image-block" style="height: 100%; min-height: 350px;">
+      <img src="{{ url_for('static', filename='images/community1.jfif') }}" alt="Community engagement" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+
+<!-- Section 2: Vision, Mission, Purpose & Values -->
+<section class="sec grey animate-up">
+  <div class="wrap">
+    <div class="grid c3" style="gap: 2rem; margin-bottom: 3rem;">
+      <div class="card" style="padding: 2rem; background: var(--white);">
+        <div class="card-img-wrap compact" style="margin-bottom: 1rem;"><img src="{{ url_for('static', filename='images/s1.jfif') }}" alt="Vision"></div>
+        <h3>Vision</h3>
+        <p>An impactful think-and-action tank for sustainable democracy, the rule of law and peace.</p>
+      </div>
+      <div class="card" style="padding: 2rem; background: var(--white);">
+        <div class="card-img-wrap compact" style="margin-bottom: 1rem;"><img src="{{ url_for('static', filename='images/s2.jfif') }}" alt="Mission"></div>
+        <h3>Mission</h3>
+        <p>A one-stop civic empowerment think-and-action tank providing leadership solutions for sustainable democracy, development and peace.</p>
+      </div>
+      <div class="card" style="padding: 2rem; background: var(--white);">
+        <div class="card-img-wrap compact" style="margin-bottom: 1rem;"><img src="{{ url_for('static', filename='images/s3.jfif') }}" alt="Purpose"></div>
+        <h3>Purpose</h3>
+        <p>We empower through democracy leadership solutions that deepen, defend and make democracy work for all.</p>
+      </div>
+    </div>
+    <div class="values-container" style="text-align: center; margin-top: 3rem;">
+  <h3 style="margin-bottom: 1.5rem;">Our Values</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Transparency</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Rights</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Ubuntu</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Social Justice</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Truth</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Freedom</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Accountability</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Integrity</div>
+    <div style="padding: 1rem; background: var(--white); border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">Responsibility</div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- Section 3: Prof. Thuli Madonsela -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1fr 1.5fr; align-items: center; gap: 3rem;">
+    <div class="image-block">
+      <img src="{{ url_for('static', filename='images/Thuli.jpg') }}" alt="Prof. Thuli Madonsela" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="prose">
+      <p class="eyebrow">The Founder</p>
+      <h2>Prof. Thuli Madonsela</h2>
+      <p>The Foundation's work is rooted in the biography and public-service record of Prof. Thuli Madonsela. As a private, non-partisan, and operational institution, our framework relies on her commitment to ethical, purposeful, impactful, and service-committed leadership.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Our Team & Governance -->
+<section class="sec dark animate-up">
+  <div class="wrap">
+    <div class="grid split" style="margin-bottom: 3rem; align-items: center;">
+      <div class="prose">
+        <p class="eyebrow" style="color: var(--teal)">Governance & Leadership</p>
+        <h2 style="color: var(--white)">Our Team & Board of Trustees</h2>
+        <p style="color: #d7dede;">The Foundation is governed by a dedicated Board of Trustees and managed by an executive team focused on operational excellence. Please note the team structure reflects only current staff, as past members Catherine Peter and Belinda Moses are no longer with the Foundation.</p>
+      </div>
+      <div class="image-block">
+         <img src="{{ url_for('static', filename='images/c1.jfif') }}" alt="Foundation Team" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Section 5: The Archive & Annual Reports -->
+<section class="sec grey animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1.5fr 1fr; align-items: center; gap: 3rem;">
+    <div class="prose">
+      <p class="eyebrow">Legacy & Transparency</p>
+      <h2>Archive & Annual Reports</h2>
+      <p>We are currently building a permanent, searchable public record of Prof. Madonsela's public-service work and the Foundation's institutional output. If you hold relevant materials, we invite you to contact us.</p>
+      <p>To uphold donor credibility, we also publish our Annual Reports and Financials, ensuring full institutional transparency.</p>
+      <p style="margin-top: 1.5rem;">
+        <a class="btn" href="/contact">Contribute to the Archive</a> 
+      </p>
+    </div>
+    <div class="grid c2" style="gap: 1rem;">
+       <div class="image-block"><img src="{{ url_for('static', filename='images/d1.jfif') }}" alt="Archive preview 1" style="width:100%; height:100%; object-fit:cover;"></div>
+       <div class="image-block"><img src="{{ url_for('static', filename='images/d2.jfif') }}" alt="Archive preview 2" style="width:100%; height:100%; object-fit:cover;"></div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

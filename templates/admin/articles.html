@@ -1,0 +1,47 @@
+{% extends "admin/base.html" %}
+{% block title %}Articles & Insights{% endblock %}
+{% block page_title %}Manage Insights & Articles{% endblock %}
+
+{% block admin_main %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+  <p style="color: var(--mid); margin: 0;">Publish commentary, policy briefs, and research updates.</p>
+  <a href="/admin/articles/new" class="btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">+ New Article</a>
+</div>
+
+<div class="admin-card">
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Author</th>
+          <th>Published Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in articles %}
+        <tr>
+          <td>
+            <strong>{{ a.title }}</strong><br>
+            <span style="font-size: 0.8rem; color: var(--mid);">/insights/{{ a.type }}/{{ a.slug }}</span>
+          </td>
+          <td><span class="badge badge-success">{{ a.type|capitalize }}</span></td>
+          <td>{{ a.author }}</td>
+          <td>{{ a.date }}</td>
+          <td>
+            <a href="/insights/{{ a.type }}/{{ a.slug }}" target="_blank" style="color: var(--teal); margin-right: 0.75rem; text-decoration: none;">View</a>
+            <a href="/admin/articles/edit/{{ a.slug }}" style="color: var(--dark); text-decoration: none;">Edit</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; color: var(--mid);">No articles found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

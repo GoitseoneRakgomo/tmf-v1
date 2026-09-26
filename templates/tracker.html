@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Electoral Promise Tracker{% endblock %}
+{% block main %}<section class="sec dark"><div class="wrap"><h1>Electoral Promise Tracker</h1>
+<p>Every party, the same method, sourced on every claim. The trust deed prohibits using Foundation resources to support, advance or oppose any political party.</p><a class="btn alt" href="#method">Read the methodology</a></div></section>
+<div class="wrap sec"><div class="grid c4"><div class="card"><div class="stat">{{ total }}</div>Promises tracked</div>{% for s, v in stats.items() %}<div class="card"><div class="stat">{{ v }}%</div>{{ s }}</div>{% endfor %}</div>
+<form method="get" class="grid c3" style="margin:1rem 0"><div><label for="sp">Sphere</label><select id="sp" name="sphere"><option value="">All</option>{% for s in spheres %}<option{{ ' selected' if s == sphere }}>{{ s }}</option>{% endfor %}</select></div>
+<div><label for="st">Status</label><select id="st" name="status"><option value="">All</option>{% for s in ["Delivered", "In progress", "Not delivered"] %}<option{{ ' selected' if s == status }}>{{ s }}</option>{% endfor %}</select></div>
+<div style="align-self:end"><button class="btn" type="submit">Filter</button></div></form>
+<div class="scroll"><table><thead><tr><th>Promise</th><th>Source</th><th>Sphere</th><th>Status</th></tr></thead><tbody>
+{% for p in rows %}<tr><td><a href="/our-work/research/promise-tracker/{{ p.id }}">{{ p.promise }}</a></td><td>{{ p.source }}</td><td>{{ p.sphere }}</td><td><span class="pill">{{ p.status }}</span></td></tr>{% endfor %}</tbody></table></div>
+<p id="method" class="meta">Sample data. Download the full dataset (CSV) · Cite this tracker · Corrections policy</p></div>{% endblock %}

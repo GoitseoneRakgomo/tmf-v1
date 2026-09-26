@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}{{ a.title }}{% endblock %}
+{% block head %}<link rel="canonical" href="{{ request.base_url }}">{% endblock %}
+{% block main %}<article class="wrap sec"><p class="eyebrow">{{ a.type }}</p><h1 style="max-width:22ch">{{ a.title }}</h1>
+<p class="prose"><em>{{ a.standfirst }}</em></p><p class="meta">{{ a.author }} · {{ a.date }} · {{ a.mins }} min read</p>
+<div class="ph" role="img" aria-label="Image placeholder" style="max-width:38rem">Image with caption and credit</div>
+<div class="prose">{% for p in a.body %}<p>{{ p }}</p>{% endfor %}</div>
+{% if a.cite %}<p class="card prose"><strong>Cite this piece:</strong> {{ a.cite }}</p>{% endif %}
+{% if a.first_published %}<p class="meta">First published in {{ a.first_published }}.</p>{% endif %}</article>{% endblock %}

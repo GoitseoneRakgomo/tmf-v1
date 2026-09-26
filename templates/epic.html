@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}EPIC Leadership{% endblock %}
+{% block main %}<section class="sec dark"><div class="wrap"><h1>EPIC Leadership</h1>
+<p>Ethical · Purpose-Driven · Impact-Conscious · Committed to Serve</p>
+<p><a class="btn" href="https://booking.example.org" rel="noopener">Book now</a> <a class="btn alt" href="/contact?route=training">Request a quote</a></p></div></section>
+<div class="wrap sec grid split"><div><h2>What the programme does</h2><p>[Programme description]</p>
+<div class="grid c2">{% for n, t in [(1, "Ethical"), (2, "Purpose-Driven"), (3, "Impact-Conscious"), (4, "Committed to Serve")] %}<div class="row"><span class="letter">{{ n }}</span><div>{{ t }}</div></div>{% endfor %}</div></div>
+<aside class="card"><h2>Upcoming sessions</h2>{% for s in sessions %}<div class="row"><div><strong>{{ s.dates }}</strong><br>{{ s.place }}</div>
+{% if s.seats == 0 %}<span class="pill">Full</span>{% else %}<div>{% if s.seats %}<span class="pill">{{ s.seats }} seats left</span>{% else %}<span class="pill">Open</span>{% endif %}</div><a class="btn" href="https://booking.example.org">Book</a>{% endif %}</div>{% endfor %}
+<p class="meta">Booking and payment are handled by our booking partner. Institutions can request a quote instead.</p></aside></div>{% endblock %}

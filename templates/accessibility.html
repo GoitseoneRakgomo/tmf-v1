@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Accessibility Statement - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/hero2.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Universal Access</p>
+      <h1>Accessibility Statement</h1>
+    </div>
+  </div>
+</header>
+
+<!-- Accessibility Content Section -->
+<section class="sec animate-up">
+  <div class="wrap" style="max-width: 850px; margin: 0 auto;">
+    <div class="prose">
+      <h2>Our Commitment to Accessibility</h2>
+      <p>The Thuli Madonsela Foundation is dedicated to ensuring digital accessibility for all citizens, including people with disabilities. We continuously improve user experience for everyone and apply the relevant accessibility standards.</p>
+
+      <h3 style="margin-top: 2rem;">1. Conformance Standards</h3>
+      <p>This website strives to align with the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> standard. Key measures incorporated into this platform include:</p>
+      <ul style="padding-left: 1.2rem; line-height: 1.8; color: var(--mid);">
+        <li><strong>Skip to Content Navigation:</strong> Direct skip links for keyboard and screen-reader users.</li>
+        <li><strong>Mobile-First & Flexible Layouts:</strong> Fluid, responsive designs adapting seamlessly across device screen sizes.</li>
+        <li><strong>Color Contrast & Typography:</strong> High-contrast color combinations paired with readable line height and font weights.</li>
+        <li><strong>Screen Reader Compatibility:</strong> Semantic HTML landmarks (`<header>`, `<main>`, `<footer>`, `<nav>`) and accessible ARIA attributes.</li>
+      </ul>
+
+      <h3 style="margin-top: 2rem;">2. Feedback & Assistance</h3>
+      <p>We welcome your feedback on the accessibility of our platform. If you encounter accessibility barriers while navigating our website, please let us know so we can assist you and improve the platform.</p>
+      <p style="margin-top: 1.5rem;">
+        <a class="btn" href="mailto:info@domain.org.za">Report an Accessibility Issue</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

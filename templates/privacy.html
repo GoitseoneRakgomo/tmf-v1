@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy & POPIA - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a4.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Legal & Compliance</p>
+      <h1>Privacy Policy & POPIA Compliance</h1>
+    </div>
+  </div>
+</header>
+
+<!-- Overview Section -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
+    <div class="prose">
+      <h2>Commitment to Data Protection</h2>
+      <p>The Thuli Madonsela Foundation Trust (Registration IT000570/2017(G)) is committed to protecting your privacy and ensuring that your personal information is processed safely and legally in compliance with the Protection of Personal Information Act (POPIA) of South Africa.</p>
+      
+      <h3 style="margin-top: 2rem;">1. Information We Collect</h3>
+      <p>We only collect personal information that you voluntarily provide to us, including when you:</p>
+      <ul style="padding-left: 1.2rem; line-height: 1.8; color: var(--mid);">
+        <li>Register for events, summits, or leadership courses.</li>
+        <li>Make a donation or request a Section 18A tax certificate.</li>
+        <li>Subscribe to research publications, policy briefs, or newsletters.</li>
+        <li>Submit general or media inquiries through our contact channels.</li>
+      </ul>
+
+      <h3 style="margin-top: 2rem;">2. How We Use Your Personal Information</h3>
+      <p>Your personal data is strictly processed for the intended institutional purposes, such as issuing Section 18A certificates, confirming event registrations, providing research updates, and maintaining legal compliance.</p>
+
+      <h3 style="margin-top: 2rem;">3. Section 18A & Financial Security</h3>
+      <p>Sensitive details requested for tax certificates (ID/Passport numbers, Tax Reference numbers) are handled with elevated privacy protections. We do not retain unneeded financial records or share donor credentials with external commercial third parties.</p>
+
+      <h3 style="margin-top: 2rem;">4. Your POPIA Rights</h3>
+      <p>Under POPIA, you have the right to request access to your personal data held by the Foundation, request corrections or updates, or object to/opt out of direct communications at any time.</p>
+    </div>
+
+    <!-- Contact Officer Card -->
+    <div class="card" style="padding: 2rem; background: var(--white); border-radius: 6px; border: 1px solid rgba(0,0,0,0.06); position: sticky; top: 2rem;">
+      <p class="eyebrow">Information Officer</p>
+      <h3 style="margin-bottom: 0.5rem;">Privacy Enquiries</h3>
+      <p style="font-size: 0.95rem; color: var(--mid); margin-bottom: 1.5rem;">For questions or requests regarding your personal data under POPIA, please contact our Information Officer:</p>
+      <p style="font-size: 0.95rem; line-height: 1.6;">
+        <strong>Email:</strong> <a href="mailto:info@domain.org.za" style="color: var(--teal); text-decoration: none;">info@domain.org.za</a><br>
+        <strong>Phone:</strong> +27 (0)12 000 0000<br>
+        <strong>Address:</strong> 430 Lea Street, Waterkloof Glen, Pretoria, 0181
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

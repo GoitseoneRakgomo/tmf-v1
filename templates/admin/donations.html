@@ -1,0 +1,53 @@
+{% extends "admin/base.html" %}
+{% block title %}Donations & Section 18A{% endblock %}
+{% block page_title %}Donation & Tax Certificate Log{% endblock %}
+
+{% block admin_main %}
+<div class="admin-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <h3 style="margin: 0;">All Recorded Contributions</h3>
+    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #333;">Export CSV</button>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Frequency</th>
+          <th>Amount</th>
+          <th>Tax Cert Req.</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#DON-1042</td>
+          <td>donor@example.com</td>
+          <td>Monthly</td>
+          <td>R 500</td>
+          <td><span class="badge badge-success">Yes</span></td>
+          <td>Individual · ID: 850101****088</td>
+        </tr>
+        <tr>
+          <td>#DON-1041</td>
+          <td>support@company.co.za</td>
+          <td>Once</td>
+          <td>R 5,000</td>
+          <td><span class="badge badge-success">Yes</span></td>
+          <td>Company · Reg: 2020/123456/07</td>
+        </tr>
+        <tr>
+          <td>#DON-1040</td>
+          <td>friend@civic.org</td>
+          <td>Once</td>
+          <td>R 100</td>
+          <td><span class="badge badge-warning">No</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Our Work - Thuli Madonsela Foundation{% endblock %}
+{% block main %}
+
+<!-- Hero Banner -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/hero2.jfif') }}');">
+  <div class="wrap">
+    <div class="banner-content animate-up">
+      <p class="eyebrow">Our Work</p>
+      <h1>Cultivating Leadership, Defending Democracy & Driving Social Justice</h1>
+    </div>
+  </div>
+</header>
+
+<!-- Overview / Strategy Section -->
+<section class="sec animate-up">
+  <div class="wrap grid split" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 3rem;">
+    <div class="prose">
+      <p class="eyebrow">Think & Action Tank</p>
+      <h2>Translating Vision into Impact</h2>
+      <p>Our work combines rigorous policy analysis with practical community action. We bridge the gap between academic discourse and grassroots civic empowerment, ensuring that democratic institutions respond effectively to structural inequalities and societal challenges.</p>
+    </div>
+    <div class="image-block" style="height: 100%; min-height: 350px;">
+      <img src="{{ url_for('static', filename='images/community3.jfif') }}" alt="Community engagement workshop" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+<!-- Core Strategic Pillars Section -->
+<section class="sec grey animate-up">
+  <div class="wrap">
+    <div class="prose" style="text-align: center; max-width: 750px; margin: 0 auto 3rem auto;">
+      <p class="eyebrow">Strategic Focus Areas</p>
+      <h2>Our Key Pillars</h2>
+      <p>We deliver our mandate through four interconnected strategic programmatic areas designed to deepen democracy and strengthen ethical governance.</p>
+    </div>
+
+    <div class="grid c2" style="gap: 2rem;">
+      <!-- Pillar 1 -->
+      <div class="card" style="padding: 2.5rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 200px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/d3.jfif') }}" alt="Democracy & Rule of Law" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow">Pillar 01</p>
+          <h3>Democracy & Rule of Law</h3>
+          <p>Defending constitutionalism, safeguarding institutional integrity, and advancing policy frameworks that protect fundamental human rights and democratic norms.</p>
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="card" style="padding: 2.5rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 200px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/le1.jfif') }}" alt="Ethical Leadership" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow">Pillar 02</p>
+          <h3>Ethical Leadership Development</h3>
+          <p>Training and mentoring emerging leaders across public, private, and civil sectors grounded in integrity, accountability, and the spirit of Ubuntu.</p>
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="card" style="padding: 2.5rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 200px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/s4.jfif') }}" alt="Social Justice & Equality" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow">Pillar 03</p>
+          <h3>Social Justice & Economic Inclusion</h3>
+          <p>Addressing systemic poverty, inequality, and discrimination by crafting inclusive socio-economic solutions and evidence-based policy proposals.</p>
+        </div>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="card" style="padding: 2.5rem; background: var(--white); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="card-img-wrap" style="height: 200px; margin-bottom: 1.5rem; overflow: hidden; border-radius: 6px;">
+            <img src="{{ url_for('static', filename='images/l4.jfif') }}" alt="Youth & Civic Empowerment" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <p class="eyebrow">Pillar 04</p>
+          <h3>Youth & Civic Empowerment</h3>
+          <p>Mobilizing young people to actively participate in democratic processes, counter civic apathy, and lead sustainable community transformation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Highlighted Initiatives / Action Tank Section -->
+<section class="sec dark animate-up">
+  <div class="wrap">
+    <div class="grid split" style="grid-template-columns: 1.2fr 1fr; align-items: center; gap: 3rem;">
+      <div class="prose">
+        <p class="eyebrow" style="color: var(--teal);">Action Tank in Motion</p>
+        <h2 style="color: var(--white);">Dialogues, Research & Policy Advocacy</h2>
+        <p style="color: #d7dede;">Through roundtables, annual summits, policy briefs, and grassroots dialogues, we bring together multi-stakeholder coalitions to address critical governance challenges in real time.</p>
+        <ul style="color: #d7dede; margin: 1.5rem 0; padding-left: 1.2rem; line-height: 1.8;">
+          <li>National Dialogues on Governance & Accountability</li>
+          <li>Youth Democracy & Leadership Masterclasses</li>
+          <li>Social Justice Research Publications & Policy Submissions</li>
+          <li>Community Civic Literacy Campaigns</li>
+        </ul>
+      </div>
+      <div class="image-block">
+        <img src="{{ url_for('static', filename='images/e2.jfif') }}" alt="Foundation Dialogue" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call To Action Divider -->
+<header class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a4.jfif') }}'); min-height: 35vh;">
+  <div class="wrap" style="text-align: center;">
+    <div class="banner-content animate-up" style="max-width: 700px; margin: 0 auto; padding: 2rem 0;">
+      <h2>Partner With Us</h2>
+      <p style="margin: 1rem 0 1.5rem 0; font-size: 1.1rem; color: rgba(255,255,255,0.9);">Join our initiatives, collaborate on research, or support our civic empowerment programs.</p>
+      <a class="btn" href="/contact">Get Involved</a>
+    </div>
+  </div>
+</header>
+
+{% endblock %}
