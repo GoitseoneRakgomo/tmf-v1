@@ -4,10 +4,15 @@
 
 {% block main %}
 
+<!-- ============ PRE-COMPUTE ALL BAR WIDTHS ============ -->
+{% set insights_bar = [published_insights_count * 20, 100]|min %}
+{% set events_bar = [upcoming_events_count * 25, 100]|min %}
+{% set courses_bar = [published_courses_count * 25, 100]|min %}
+{% set subscribers_bar = (active_subscribers_count * 100 / total_subscribers_count)|round|int if total_subscribers_count else 0 %}
+
 <!-- ============ HEADER ============ -->
 <div class="overview-header">
   <div class="greeting">
-    <h1>Dashboard</h1>
     <p class="date">{{ today }}</p>
   </div>
   <div class="quick-actions">
@@ -61,28 +66,28 @@
     <div class="mini-label">Insights</div>
     <div class="mini-value">{{ published_insights_count }}</div>
     <div class="mini-sub">{{ draft_insights_count }} draft{{ 's' if draft_insights_count != 1 else '' }}</div>
-    <div class="mini-bar"><span style="width: {{ [published_insights_count * 20, 100]|min }}%"></span></div>
+    <div class="mini-bar"><span style="width: {{ insights_bar }}%"></span></div>
   </a>
 
   <a class="mini-stat" href="/admin/programmes?kind=event">
     <div class="mini-label">Events</div>
     <div class="mini-value">{{ published_events_count }}</div>
     <div class="mini-sub">{{ upcoming_events_count }} upcoming</div>
-    <div class="mini-bar burg"><span style="width: {{ [upcoming_events_count * 25, 100]|min }}%"></span></div>
+    <div class="mini-bar burg"><span style="width: {{ events_bar }}%"></span></div>
   </a>
 
   <a class="mini-stat" href="/admin/programmes?kind=course">
     <div class="mini-label">Courses</div>
     <div class="mini-value">{{ published_courses_count }}</div>
     <div class="mini-sub">{{ draft_courses_count }} draft{{ 's' if draft_courses_count != 1 else '' }}</div>
-    <div class="mini-bar gold"><span style="width: {{ [published_courses_count * 25, 100]|min }}%"></span></div>
+    <div class="mini-bar gold"><span style="width: {{ courses_bar }}%"></span></div>
   </a>
 
   <a class="mini-stat" href="/admin/subscribers">
     <div class="mini-label">Subscribers</div>
     <div class="mini-value">{{ active_subscribers_count }}</div>
     <div class="mini-sub">of {{ total_subscribers_count }} total</div>
-    <div class="mini-bar forest"><span style="width: {{ (active_subscribers_count * 100 / total_subscribers_count)|round if total_subscribers_count else 0 }}%"></span></div>
+    <div class="mini-bar forest"><span style="width: {{ subscribers_bar }}%"></span></div>
   </a>
 
 </div>
@@ -99,7 +104,7 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">Nothing needs your attention right now.</p>
+      <p class="muted-text">Nothing needs your attention right now.</p>
     {% endif %}
   </div>
 
@@ -121,7 +126,7 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">No upcoming events.</p>
+      <p class="muted-text">No upcoming events.</p>
     {% endif %}
   </div>
 
