@@ -1,53 +1,91 @@
 {% extends "admin/base.html" %}
-{% block title %}Donations & Section 18A{% endblock %}
-{% block page_title %}Donation & Tax Certificate Log{% endblock %}
+{% block title %}Donations{% endblock %}
+{% block page_title %}Donations{% endblock %}
+{% block page_subtitle %}<p class="subtitle">All donations, revenue, and donor categories.</p>{% endblock %}
 
-{% block admin_main %}
-<div class="admin-card">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-    <h3 style="margin: 0;">All Recorded Contributions</h3>
-    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.85rem; background: #333;">Export CSV</button>
+{% block main %}
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">Total revenue</div>
+    <div class="stat-value">R{{ "{:,}".format(total_revenue) }}</div>
+    <div class="stat-sub">Completed donations only</div>
   </div>
+  <div class="stat-card">
+    <div class="stat-label">Donations</div>
+    <div class="stat-value">{{ donations|length }}</div>
+    <div class="stat-sub">All categories</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Average donation</div>
+    <div class="stat-value">R{{ "{:,}".format(avg_donation) }}</div>
+    <div class="stat-sub">Per completed donation</div>
+  </div>
+</div>
 
-  <div class="admin-table-wrap">
+<div class="panel">
+  <h2>Revenue by category</h2>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Donations</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat, data in by_category.items() %}
+        <tr>
+          <td><span class="badge {{ cat }}">{{ cat }}</span></td>
+          <td>{{ data.count }}</td>
+          <td>R{{ "{:,}".format(data.total) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="panel">
+  <h2>All donations</h2>
+  {% if donations %}
     <table class="admin-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Donor</th>
           <th>Email</th>
-          <th>Frequency</th>
+          <th>Category</th>
           <th>Amount</th>
-          <th>Tax Cert Req.</th>
-          <th>Details</th>
+          <th>Frequency</th>
+          <th>Date</th>
+          <th>Certificate</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>#DON-1042</td>
-          <td>donor@example.com</td>
-          <td>Monthly</td>
-          <td>R 500</td>
-          <td><span class="badge badge-success">Yes</span></td>
-          <td>Individual · ID: 850101****088</td>
-        </tr>
-        <tr>
-          <td>#DON-1041</td>
-          <td>support@company.co.za</td>
-          <td>Once</td>
-          <td>R 5,000</td>
-          <td><span class="badge badge-success">Yes</span></td>
-          <td>Company · Reg: 2020/123456/07</td>
-        </tr>
-        <tr>
-          <td>#DON-1040</td>
-          <td>friend@civic.org</td>
-          <td>Once</td>
-          <td>R 100</td>
-          <td><span class="badge badge-warning">No</span></td>
-          <td>—</td>
-        </tr>
+        {% for d in donations %}
+          <tr>
+            <td>{{ d.donor_name }}</td>
+            <td>{{ d.donor_email }}</td>
+            <td><span class="badge {{ d.category }}">{{ d.category }}</span></td>
+            <td>R{{ "{:,}".format(d.amount) }}</td>
+            <td>{{ d.frequency }}</td>
+            <td>{{ d.date }}</td>
+            <td>
+              {% if d.certificate %}
+                <span class="badge published">Yes</span>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
-  </div>
+  {% else %}
+    <div class="empty-state">
+      <h3>No donations yet</h3>
+      <p>Donations will appear here once the payment gateway is connected.</p>
+    </div>
+  {% endif %}
 </div>
+
 {% endblock %}

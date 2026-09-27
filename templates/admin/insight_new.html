@@ -1,0 +1,64 @@
+{% extends "admin/base.html" %}
+{% block title %}New insight{% endblock %}
+{% block page_title %}New insight{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Create a new insight. Save as draft or publish immediately.</p>{% endblock %}
+
+{% block main %}
+
+<form class="admin-form panel" method="post" action="/admin/insights/new">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title" required value="{{ f.title or '' }}">
+  {% if errors.title %}<p class="field-error">{{ errors.title }}</p>{% endif %}
+
+  <label for="type">Type</label>
+  <select id="type" name="type">
+    <option value="commentary" {% if f.type == 'commentary' %}selected{% endif %}>Commentary</option>
+    <option value="research" {% if f.type == 'research' %}selected{% endif %}>Research</option>
+    <option value="news" {% if f.type == 'news' %}selected{% endif %}>News</option>
+    <option value="multimedia" {% if f.type == 'multimedia' %}selected{% endif %}>Multimedia</option>
+  </select>
+
+  <label for="standfirst">Standfirst</label>
+  <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or '' }}">
+  <p class="field-help">A short summary that appears under the headline.</p>
+
+  <label for="body">Story / body</label>
+  <textarea id="body" name="body" required>{{ f.body or '' }}</textarea>
+
+  <label for="image_url">Image URL</label>
+  <input type="url" id="image_url" name="image_url" value="{{ f.image_url or '' }}" placeholder="https://...">
+  <p class="field-help">Link to the image. Uploads come later.</p>
+
+  <label for="link_url">Related link</label>
+  <input type="url" id="link_url" name="link_url" value="{{ f.link_url or '' }}" placeholder="https://...">
+  <p class="field-help">Optional. A source or related link.</p>
+
+  <label>Card colour</label>
+  <div class="colour-options">
+    <input type="radio" id="c-teal" name="colour" value="teal" {% if f.colour == 'teal' or not f.colour %}checked{% endif %}>
+    <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
+
+    <input type="radio" id="c-deep" name="colour" value="deep" {% if f.colour == 'deep' %}checked{% endif %}>
+    <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
+
+    <input type="radio" id="c-burg" name="colour" value="burg" {% if f.colour == 'burg' %}checked{% endif %}>
+    <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+
+    <input type="radio" id="c-gold" name="colour" value="gold" {% if f.colour == 'gold' %}checked{% endif %}>
+    <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+
+    <input type="radio" id="c-forest" name="colour" value="forest" {% if f.colour == 'forest' %}checked{% endif %}>
+    <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+
+    <input type="radio" id="c-slate" name="colour" value="slate" {% if f.colour == 'slate' %}checked{% endif %}>
+    <label for="c-slate"><span class="colour-swatch swatch-slate"></span> Slate</label>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn" type="submit" name="action" value="publish">Publish now</button>
+    <button class="btn alt" type="submit" name="action" value="draft">Save as draft</button>
+    <a class="btn alt" href="/admin/insights">Cancel</a>
+  </div>
+</form>
+
+{% endblock %}

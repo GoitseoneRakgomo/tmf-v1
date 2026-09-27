@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit insight{% endblock %}
+{% block page_title %}Edit insight{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Editing: {{ a.title }}</p>{% endblock %}
+
+{% block main %}
+
+<form class="admin-form panel" method="post" action="/admin/insights/{{ a.slug }}/edit">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title" required value="{{ f.title or a.title }}">
+
+  <label for="type">Type</label>
+  <select id="type" name="type">
+    <option value="commentary" {% if (f.type or a.type) == 'commentary' %}selected{% endif %}>Commentary</option>
+    <option value="research" {% if (f.type or a.type) == 'research' %}selected{% endif %}>Research</option>
+    <option value="news" {% if (f.type or a.type) == 'news' %}selected{% endif %}>News</option>
+    <option value="multimedia" {% if (f.type or a.type) == 'multimedia' %}selected{% endif %}>Multimedia</option>
+  </select>
+
+  <label for="standfirst">Standfirst</label>
+  <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or a.standfirst }}">
+
+  <label for="body">Story / body</label>
+  <textarea id="body" name="body" required>{{ f.body or a.body }}</textarea>
+
+  <label for="image_url">Image URL</label>
+  <input type="url" id="image_url" name="image_url" value="{{ f.image_url or a.image_url or '' }}">
+
+  <label for="link_url">Related link</label>
+  <input type="url" id="link_url" name="link_url" value="{{ f.link_url or a.link_url or '' }}">
+
+  <label>Card colour</label>
+  <div class="colour-options">
+    {% set current = f.colour or a.colour or 'teal' %}
+    <input type="radio" id="c-teal" name="colour" value="teal" {% if current == 'teal' %}checked{% endif %}>
+    <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
+
+    <input type="radio" id="c-deep" name="colour" value="deep" {% if current == 'deep' %}checked{% endif %}>
+    <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
+
+    <input type="radio" id="c-burg" name="colour" value="burg" {% if current == 'burg' %}checked{% endif %}>
+    <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+
+    <input type="radio" id="c-gold" name="colour" value="gold" {% if current == 'gold' %}checked{% endif %}>
+    <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+
+    <input type="radio" id="c-forest" name="colour" value="forest" {% if current == 'forest' %}checked{% endif %}>
+    <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+
+    <input type="radio" id="c-slate" name="colour" value="slate" {% if current == 'slate' %}checked{% endif %}>
+    <label for="c-slate"><span class="colour-swatch swatch-slate"></span> Slate</label>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn" type="submit">Save changes</button>
+    <a class="btn alt" href="/admin/insights">Cancel</a>
+  </div>
+</form>
+
+{% endblock %}

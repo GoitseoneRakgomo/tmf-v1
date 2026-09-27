@@ -1,0 +1,89 @@
+{% extends "admin/base.html" %}
+{% block title %}Programmes{% endblock %}
+{% block page_title %}Programmes{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Events and courses in one place.</p>{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn" href="/admin/programmes/new">+ New programme</a>
+{% endblock %}
+
+{% block main %}
+
+<!-- Filters -->
+<div class="panel">
+  <div class="panel-actions">
+    <a class="btn alt small {% if kind_filter == 'all' %}active{% endif %}" href="/admin/programmes?kind=all">
+      All ({{ counts.all }})
+    </a>
+    <a class="btn alt small {% if kind_filter == 'event' %}active{% endif %}" href="/admin/programmes?kind=event">
+      Events ({{ counts.event }})
+    </a>
+    <a class="btn alt small {% if kind_filter == 'course' %}active{% endif %}" href="/admin/programmes?kind=course">
+      Courses ({{ counts.course }})
+    </a>
+  </div>
+
+  {% if programmes %}
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Place / Format</th>
+          <th>Registered</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in programmes %}
+          <tr>
+            <td>
+              {% if p.kind == 'event' %}
+                <span class="badge individual">Event</span>
+              {% else %}
+                <span class="badge corporate">Course</span>
+              {% endif %}
+            </td>
+            <td>
+              {{ p.title }}
+              {% if p.featured %}<span class="badge gold" style="margin-left:.5rem;">Featured</span>{% endif %}
+            </td>
+            <td>{{ p.date }}{% if p.end_date and p.end_date != p.date %} – {{ p.end_date }}{% endif %}</td>
+            <td>
+              {% if p.kind == 'event' %}
+                {{ p.place }}
+              {% else %}
+                {{ p.format }} · {{ p.duration }}
+              {% endif %}
+            </td>
+            <td>{{ p.registered }}{% if p.capacity %} / {{ p.capacity }}{% endif %}</td>
+            <td>
+              {% if p.status == 'published' %}
+                <span class="badge published">Published</span>
+              {% else %}
+                <span class="badge draft">Draft</span>
+              {% endif %}
+            </td>
+            <td>
+              <div class="actions">
+                <a class="btn alt small" href="/admin/programmes/{{ p.slug }}/edit">Edit</a>
+                {% if p.status == 'draft' %}
+                  <a class="btn small" href="/admin/programmes/{{ p.slug }}/publish">Publish</a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="empty-state">
+      <h3>No programmes yet</h3>
+      <p><a href="/admin/programmes/new">Create your first event or course</a></p>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

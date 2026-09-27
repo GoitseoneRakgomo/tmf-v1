@@ -1,72 +1,175 @@
 {% extends "admin/base.html" %}
+{% block title %}Overview{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
 
-{% block title %}Dashboard{% endblock %}
-{% block page_title %}Executive Overview{% endblock %}
+{% block main %}
 
-{% block admin_main %}
-<!-- Metric Cards -->
-<div class="admin-grid c3" style="margin-bottom: 2rem;">
-  <div class="admin-card" style="margin-bottom: 0;">
-    <p class="eyebrow" style="margin-bottom: 0.5rem;">Donations (This Month)</p>
-    <h2 style="font-size: 2rem; margin: 0; color: #008080;">R 48,500</h2>
-    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">14 Section 18A Certificates issued</p>
+<!-- ============ HEADER ============ -->
+<div class="overview-header">
+  <div class="greeting">
+   
+    <p class="date">{{ today }}</p>
   </div>
-
-  <div class="admin-card" style="margin-bottom: 0;">
-    <p class="eyebrow" style="margin-bottom: 0.5rem;">Upcoming Events</p>
-    <h2 style="font-size: 2rem; margin: 0; color: #111827;">3 Active</h2>
-    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">Democracy Dialogue (23 Sep)</p>
-  </div>
-
-  <div class="admin-card" style="margin-bottom: 0;">
-    <p class="eyebrow" style="margin-bottom: 0.5rem;">Published Insights</p>
-    <h2 style="font-size: 2rem; margin: 0; color: #111827;">{{ articles_count if articles_count else 4 }} Items</h2>
-    <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">Commentary, Research & News</p>
+  <div class="quick-actions">
+    <a class="btn" href="/admin/insights/new">+ Insight</a>
+    <a class="btn alt" href="/admin/events/new">+ Event</a>
+    <a class="btn alt" href="/admin/courses/new">+ Course</a>
   </div>
 </div>
 
-<!-- Recent Donations / Submissions Table -->
-<div class="admin-card">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-    <h3 style="margin: 0;">Recent Section 18A Certificate Requests</h3>
-    <a href="/admin/donations" style="color: #008080; font-weight: 600; text-decoration: none; font-size: 0.9rem;">View All &rarr;</a>
+<!-- ============ HERO + THIS WEEK ============ -->
+<div class="hero-row">
+
+  <div class="hero-card">
+    <div class="hero-label">Revenue this year</div>
+    <div class="hero-value">R{{ "{:,}".format(total_revenue) }}</div>
+    <div class="hero-trend">↑ 12% vs last month</div>
+    <div class="hero-sub">{{ total_donations_count }} donations from {{ donor_count }} donors</div>
   </div>
 
-  <div class="admin-table-wrap">
-    <table class="admin-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Donor</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>Tax Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2026-09-24</td>
-          <td>John Doe</td>
-          <td>Individual</td>
-          <td><strong>R 1,000</strong></td>
-          <td><span class="badge badge-success">Processed</span></td>
-        </tr>
-        <tr>
-          <td>2026-09-22</td>
-          <td>Acme Corp Ltd</td>
-          <td>Company</td>
-          <td><strong>R 10,000</strong></td>
-          <td><span class="badge badge-warning">Pending Review</span></td>
-        </tr>
-        <tr>
-          <td>2026-09-18</td>
-          <td>Sarah Smith</td>
-          <td>Individual</td>
-          <td><strong>R 250</strong></td>
-          <td><span class="badge badge-success">Processed</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="this-week-card">
+    <h3>This week</h3>
+    <ul class="activity-list">
+      <li>
+        <span class="dot teal"></span>
+        <span class="activity-text">New donations</span>
+        <span class="activity-count">3</span>
+      </li>
+      <li>
+        <span class="dot burg"></span>
+        <span class="activity-text">Drafts to review</span>
+        <span class="activity-count">{{ draft_insights_count + draft_courses_count }}</span>
+      </li>
+      <li>
+        <span class="dot gold"></span>
+        <span class="activity-text">Events in next 30 days</span>
+        <span class="activity-count">{{ upcoming_events_count }}</span>
+      </li>
+      <li>
+        <span class="dot forest"></span>
+        <span class="activity-text">New subscribers</span>
+        <span class="activity-count">2</span>
+      </li>
+    </ul>
   </div>
+
 </div>
+
+<!-- ============ MINI STAT CARDS ============ -->
+<div class="mini-stat-grid">
+
+  <a class="mini-stat" href="/admin/insights">
+    <div class="mini-label">Insights</div>
+    <div class="mini-value">{{ published_insights_count }}</div>
+    <div class="mini-sub">{{ draft_insights_count }} draft{{ 's' if draft_insights_count != 1 else '' }}</div>
+    <div class="mini-bar"><span style="width: {{ [published_insights_count * 20, 100]|min }}%"></span></div>
+  </a>
+
+  <a class="mini-stat" href="/admin/events">
+    <div class="mini-label">Events</div>
+    <div class="mini-value">{{ published_events_count }}</div>
+    <div class="mini-sub">{{ upcoming_events_count }} upcoming</div>
+    <div class="mini-bar burg"><span style="width: {{ [upcoming_events_count * 25, 100]|min }}%"></span></div>
+  </a>
+
+  <a class="mini-stat" href="/admin/courses">
+    <div class="mini-label">Courses</div>
+    <div class="mini-value">{{ published_courses_count }}</div>
+    <div class="mini-sub">{{ draft_courses_count }} draft{{ 's' if draft_courses_count != 1 else '' }}</div>
+    <div class="mini-bar gold"><span style="width: {{ [published_courses_count * 25, 100]|min }}%"></span></div>
+  </a>
+
+  <a class="mini-stat" href="/admin/subscribers">
+    <div class="mini-label">Subscribers</div>
+    <div class="mini-value">{{ active_subscribers_count }}</div>
+    <div class="mini-sub">of {{ total_subscribers_count }} total</div>
+    <div class="mini-bar forest"><span style="width: {{ (active_subscribers_count * 100 / total_subscribers_count)|round if total_subscribers_count else 0 }}%"></span></div>
+  </a>
+
+</div>
+
+<!-- ============ ATTENTION + COMING UP ============ -->
+<div class="overview-columns">
+
+  <div class="attention-card">
+    <h3>Needs attention</h3>
+    {% if attention_items %}
+      <ul class="attention-list">
+        {% for item in attention_items %}
+          <li><a href="{{ item.url }}">{{ item.text }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">Nothing needs your attention right now. 🎉</p>
+    {% endif %}
+  </div>
+
+  <div class="coming-up-card">
+    <h3>Coming up</h3>
+    {% if recent_events %}
+      <ul class="event-list">
+        {% for e in recent_events %}
+          <li>
+            <div class="event-date">
+              <span class="day">{{ e.date[8:10] }}</span>
+              <span class="mon">{{ e.date[5:7] }}</span>
+            </div>
+            <div class="event-info">
+              <div class="event-title">{{ e.title }}</div>
+              <div class="event-meta">{{ e.place }} · {{ e.registered }} registered</div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">No upcoming events.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- ============ RECENT ACTIVITY ============ -->
+<div class="overview-columns">
+
+  <div class="panel">
+    <h2>Recent donations <a class="btn alt small" href="/admin/donations">View all</a></h2>
+    {% if recent_donations %}
+      <ul class="compact-list">
+        {% for d in recent_donations %}
+          <li>
+            <span class="item-title">{{ d.donor_name }}</span>
+            <span class="badge {{ d.category }}">{{ d.category }}</span>
+            <span class="item-amount">R{{ "{:,}".format(d.amount) }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">
+        <h3>No donations yet</h3>
+        <p>Once donations come in, they'll appear here.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Recent insights <a class="btn alt small" href="/admin/insights">View all</a></h2>
+    {% if recent_insights %}
+      <ul class="compact-list">
+        {% for a in recent_insights %}
+          <li>
+            <span class="item-title">{{ a.title }}</span>
+            <span class="item-meta">{{ a.type }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">
+        <h3>No insights yet</h3>
+        <p><a href="/admin/insights/new">Create your first insight</a></p>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
 {% endblock %}
