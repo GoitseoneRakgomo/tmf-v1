@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% block title %}Overview{% endblock %}
+{% block title %}Dashboard{% endblock %}
 {% block page_title %}Dashboard{% endblock %}
 
 {% block main %}
@@ -7,13 +7,12 @@
 <!-- ============ HEADER ============ -->
 <div class="overview-header">
   <div class="greeting">
-   
+    <h1>Dashboard</h1>
     <p class="date">{{ today }}</p>
   </div>
   <div class="quick-actions">
     <a class="btn" href="/admin/insights/new">+ Insight</a>
-    <a class="btn alt" href="/admin/events/new">+ Event</a>
-    <a class="btn alt" href="/admin/courses/new">+ Course</a>
+    <a class="btn alt" href="/admin/programmes/new">+ Programme</a>
   </div>
 </div>
 
@@ -65,14 +64,14 @@
     <div class="mini-bar"><span style="width: {{ [published_insights_count * 20, 100]|min }}%"></span></div>
   </a>
 
-  <a class="mini-stat" href="/admin/events">
+  <a class="mini-stat" href="/admin/programmes?kind=event">
     <div class="mini-label">Events</div>
     <div class="mini-value">{{ published_events_count }}</div>
     <div class="mini-sub">{{ upcoming_events_count }} upcoming</div>
     <div class="mini-bar burg"><span style="width: {{ [upcoming_events_count * 25, 100]|min }}%"></span></div>
   </a>
 
-  <a class="mini-stat" href="/admin/courses">
+  <a class="mini-stat" href="/admin/programmes?kind=course">
     <div class="mini-label">Courses</div>
     <div class="mini-value">{{ published_courses_count }}</div>
     <div class="mini-sub">{{ draft_courses_count }} draft{{ 's' if draft_courses_count != 1 else '' }}</div>
@@ -100,7 +99,7 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">Nothing needs your attention right now. 🎉</p>
+      <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">Nothing needs your attention right now.</p>
     {% endif %}
   </div>
 

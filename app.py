@@ -385,6 +385,7 @@ def accessibility():
 
 @app.route("/admin")
 def admin_dashboard():
+    draft_programmes = [p for p in PROGRAMMES if p.get("status") == "draft"]
     total_revenue = sum(d["amount"] for d in DONATIONS)
     donor_count = len({d["donor_email"] for d in DONATIONS if d["donor_email"]})
     by_cat = {}
