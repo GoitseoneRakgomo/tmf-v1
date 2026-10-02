@@ -1,0 +1,76 @@
+{% extends "admin/base.html" %}
+{% block title %}Subscribers{% endblock %}
+{% block page_title %}Subscribers{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Newsletter subscribers and their status.</p>{% endblock %}
+
+{% block main %}
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">Total</div>
+    <div class="stat-value">{{ stats.total }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Active</div>
+    <div class="stat-value">{{ stats.active }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Unsubscribed</div>
+    <div class="stat-value">{{ stats.unsubscribed }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Bounced</div>
+    <div class="stat-value">{{ stats.bounced }}</div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-actions">
+    <a class="btn alt small {% if status_filter == 'all' %}active{% endif %}" href="/admin/subscribers?status=all">All</a>
+    <a class="btn alt small {% if status_filter == 'active' %}active{% endif %}" href="/admin/subscribers?status=active">Active</a>
+    <a class="btn alt small {% if status_filter == 'unsubscribed' %}active{% endif %}" href="/admin/subscribers?status=unsubscribed">Unsubscribed</a>
+    <a class="btn alt small {% if status_filter == 'bounced' %}active{% endif %}" href="/admin/subscribers?status=bounced">Bounced</a>
+  </div>
+  <h2>Subscribers</h2>
+  {% if subscribers %}
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Source</th>
+          <th>Interests</th>
+          <th>Status</th>
+          <th>Subscribed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in subscribers %}
+          <tr>
+            <td>{{ s.email }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.source }}</td>
+            <td>{{ s.interests }}</td>
+            <td>
+              {% if s.status == 'active' %}
+                <span class="badge published">Active</span>
+              {% elif s.status == 'unsubscribed' %}
+                <span class="badge draft">Unsubscribed</span>
+              {% else %}
+                <span class="badge anonymous">Bounced</span>
+              {% endif %}
+            </td>
+            <td>{{ s.subscribed_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="empty-state">
+      <h3>No subscribers yet</h3>
+      <p>Subscribers will appear here once the newsletter signup form is live.</p>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

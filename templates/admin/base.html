@@ -3,220 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{% endblock %} · Admin Console · Thuli Madonsela Foundation</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
-  <style>
-    /* Reset layout collisions from main site.css */
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f8;
-      display: block;
-    }
-
-    .admin-wrapper {
-      display: flex;
-      min-height: 100vh;
-      width: 100%;
-    }
-
-    /* Fixed Sidebar */
-    .admin-sidebar {
-      width: 260px;
-      background: #111827;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1000;
-      overflow-y: auto;
-    }
-
-    .admin-brand {
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .admin-brand h2 {
-      font-size: 1.1rem;
-      margin: 0;
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .admin-brand span {
-      font-size: 0.7rem;
-      background: #008080;
-      color: #ffffff;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-weight: 700;
-    }
-
-    /* Override site.css nav layout */
-    .admin-sidebar nav.admin-nav {
-      padding: 1rem 0;
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 0.25rem !important;
-      float: none !important;
-      position: static !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      width: 100% !important;
-    }
-
-    .admin-sidebar nav.admin-nav a {
-      display: block !important;
-      padding: 0.85rem 1.5rem !important;
-      color: #9ca3af !important;
-      text-decoration: none !important;
-      font-size: 0.95rem !important;
-      font-weight: 500 !important;
-      transition: all 0.2s ease !important;
-      border-left: 4px solid transparent !important;
-      box-sizing: border-box !important;
-      white-space: nowrap !important;
-    }
-
-    .admin-sidebar nav.admin-nav a:hover,
-    .admin-sidebar nav.admin-nav a.active {
-      color: #ffffff !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-left-color: #008080 !important;
-    }
-
-    .admin-sidebar-footer {
-      margin-top: auto;
-      padding: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-
-    /* Main Container Shift */
-    .admin-main {
-      margin-left: 260px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      background: #f4f6f8;
-    }
-
-    .admin-header {
-      background: #ffffff;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding: 1.25rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .admin-content {
-      padding: 2.5rem;
-      flex: 1;
-    }
-
-    /* Override global site grid inside admin cards */
-    .admin-grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-    .admin-grid.c3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .admin-card {
-      background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 6px;
-      padding: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .admin-table-wrap {
-      overflow-x: auto;
-    }
-
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.95rem;
-    }
-
-    .admin-table th {
-      background: #f8f9fa;
-      padding: 0.85rem 1rem;
-      font-weight: 600;
-      color: #111827;
-      border-bottom: 2px solid rgba(0,0,0,0.08);
-    }
-
-    .admin-table td {
-      padding: 1rem;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      color: #4b5563;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .badge-success { background: #e6f4ea; color: #137333; }
-    .badge-warning { background: #fef7e0; color: #b06000; }
-
-    @media (max-width: 900px) {
-      .admin-grid.c3 { grid-template-columns: 1fr; }
-    }
-  </style>
+  <title>{% block title %}{% endblock %} · TMF Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
   {% block head %}{% endblock %}
 </head>
-<body>
+<body class="admin-body">
+  <div class="admin-shell">
 
-<div class="admin-wrapper">
-  <!-- Sidebar -->
-  <aside class="admin-sidebar">
-    <div class="admin-brand">
-      <h2>TMF Admin</h2>
-      <span>CMS</span>
-    </div>
-    <nav class="admin-nav">
-      <a href="/admin" class="{% if request.path == '/admin' %}active{% endif %}">Dashboard</a>
-      <a href="/admin/articles" class="{% if request.path.startswith('/admin/articles') %}active{% endif %}">Insights & Articles</a>
-      <a href="/admin/events" class="{% if request.path.startswith('/admin/events') %}active{% endif %}">Events & Courses</a>
-      <a href="/admin/donations" class="{% if request.path.startswith('/admin/donations') %}active{% endif %}">Donations & 18A</a>
-      <a href="/admin/enquiries" class="{% if request.path.startswith('/admin/enquiries') %}active{% endif %}">Route Enquiries</a>
-    </nav>
-    <div class="admin-sidebar-footer">
-      <p style="margin: 0 0 0.5rem 0;">Logged in as Admin</p>
-      <a href="/" target="_blank" style="color: #008080; text-decoration: none;">View Live Site &rarr;</a>
-    </div>
-  </aside>
+    <aside class="admin-sidebar">
+      <a class="admin-logo" href="/admin">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Thuli Madonsela Foundation">
+      </a>
 
-  <!-- Main View -->
-  <div class="admin-main">
-    <header class="admin-header">
-      <h1 style="font-size: 1.25rem; margin: 0; color: #111827;">{% block page_title %}Admin Console{% endblock %}</h1>
-      <a href="/admin/logout" class="btn" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; background: #e5e7eb; color: #374151;">Logout</a>
-    </header>
+      <nav class="admin-nav" aria-label="Admin">
+  <a href="/admin" class="{% if request.path == '/admin' %}active{% endif %}">Overview</a>
+  <a href="/admin/donations" class="{% if request.path.startswith('/admin/donations') %}active{% endif %}">Donations</a>
+  <a href="/admin/insights" class="{% if request.path.startswith('/admin/insights') %}active{% endif %}">Insights</a>
+  <a href="/admin/programmes" class="{% if request.path.startswith('/admin/programmes') %}active{% endif %}">Programmes</a>
+  <a href="/admin/subscribers" class="{% if request.path.startswith('/admin/subscribers') %}active{% endif %}">Subscribers</a>
+</nav>
 
-    <main class="admin-content">
-      {% block admin_main %}{% endblock %}
+      <a class="admin-logout" href="/">← Back to site</a>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <h1>{% block page_title %}{% endblock %}</h1>
+          {% block page_subtitle %}{% endblock %}
+        </div>
+        <div class="actions">
+          {% block topbar_actions %}{% endblock %}
+        </div>
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% block main %}{% endblock %}
     </main>
-  </div>
-</div>
 
+  </div>
 </body>
 </html>

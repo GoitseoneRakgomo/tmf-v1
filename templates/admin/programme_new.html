@@ -1,0 +1,111 @@
+{% extends "admin/base.html" %}
+{% block title %}New programme{% endblock %}
+{% block page_title %}New programme{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Create an event or a course.</p>{% endblock %}
+
+{% block main %}
+
+<form class="admin-form panel" method="post" action="/admin/programmes/new">
+
+  <label for="kind">Type</label>
+  <select id="kind" name="kind">
+    <option value="event" {% if f.kind == 'event' or not f.kind %}selected{% endif %}>Event</option>
+    <option value="course" {% if f.kind == 'course' %}selected{% endif %}>Course</option>
+  </select>
+
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title" required value="{{ f.title or '' }}">
+
+  <label for="category">Category</label>
+  <select id="category" name="category">
+    {% for val, label in categories %}
+      <option value="{{ val }}" {% if f.category == val %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="standfirst">Standfirst</label>
+  <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or '' }}">
+
+  <label for="body">Description</label>
+  <textarea id="body" name="body">{{ f.body or '' }}</textarea>
+
+  <label for="date">Start date</label>
+  <input type="date" id="date" name="date" required value="{{ f.date or '' }}">
+
+  <label for="end_date">End date</label>
+  <input type="date" id="end_date" name="end_date" value="{{ f.end_date or '' }}">
+
+  <label for="time">Time</label>
+  <input type="text" id="time" name="time" value="{{ f.time or '' }}" placeholder="09:00 – 12:30">
+
+  <label for="place">Place</label>
+  <input type="text" id="place" name="place" value="{{ f.place or '' }}">
+
+  <label for="venue">Venue</label>
+  <input type="text" id="venue" name="venue" value="{{ f.venue or '' }}">
+
+  <label for="price">Price (ZAR, 0 for free)</label>
+  <input type="number" id="price" name="price" value="{{ f.price or 0 }}" min="0">
+
+  <label for="price_label">Price label</label>
+  <input type="text" id="price_label" name="price_label" value="{{ f.price_label or '' }}">
+
+  <label for="capacity">Capacity</label>
+  <input type="number" id="capacity" name="capacity" value="{{ f.capacity or 0 }}" min="0">
+
+  <label for="register_url">Register / Book URL</label>
+  <input type="url" id="register_url" name="register_url" value="{{ f.register_url or '' }}">
+
+  <label for="image_url">Image URL</label>
+  <input type="url" id="image_url" name="image_url" value="{{ f.image_url or '' }}">
+
+  <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--line);">
+  <p style="font-size: 0.8rem; color: var(--muted); margin: 0 0 1rem;">Course-only fields (leave blank for events)</p>
+
+  <label for="facilitator">Facilitator</label>
+  <input type="text" id="facilitator" name="facilitator" value="{{ f.facilitator or '' }}">
+
+  <label for="format">Format</label>
+  <select id="format" name="format">
+    <option value="">—</option>
+    <option value="In-person" {% if f.format == 'In-person' %}selected{% endif %}>In-person</option>
+    <option value="Online" {% if f.format == 'Online' %}selected{% endif %}>Online</option>
+    <option value="Hybrid" {% if f.format == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+  </select>
+
+  <label for="duration">Duration</label>
+  <input type="text" id="duration" name="duration" value="{{ f.duration or '' }}" placeholder="2 days">
+
+  <label for="outline">Outline</label>
+  <textarea id="outline" name="outline">{{ f.outline or '' }}</textarea>
+
+  <label for="outcomes">Outcomes</label>
+  <textarea id="outcomes" name="outcomes">{{ f.outcomes or '' }}</textarea>
+
+  <label>Card colour</label>
+  <div class="colour-options">
+    <input type="radio" id="c-teal" name="colour" value="teal" {% if f.colour == 'teal' or not f.colour %}checked{% endif %}>
+    <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
+    <input type="radio" id="c-deep" name="colour" value="deep" {% if f.colour == 'deep' %}checked{% endif %}>
+    <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
+    <input type="radio" id="c-burg" name="colour" value="burg" {% if f.colour == 'burg' %}checked{% endif %}>
+    <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+    <input type="radio" id="c-gold" name="colour" value="gold" {% if f.colour == 'gold' %}checked{% endif %}>
+    <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+    <input type="radio" id="c-forest" name="colour" value="forest" {% if f.colour == 'forest' %}checked{% endif %}>
+    <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+  </div>
+
+  <label>
+    <input type="checkbox" name="featured" {% if f.featured == 'on' %}checked{% endif %}>
+    Feature on homepage
+  </label>
+
+  <div class="form-actions">
+    <button class="btn" type="submit" name="action" value="publish">Publish now</button>
+    <button class="btn alt" type="submit" name="action" value="draft">Save as draft</button>
+    <a class="btn alt" href="/admin/programmes">Cancel</a>
+  </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "admin/base.html" %}
+{% block title %}Insights{% endblock %}
+{% block page_title %}Insights{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Published insights and drafts.</p>{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn" href="/admin/insights/new">+ New insight</a>
+{% endblock %}
+
+{% block main %}
+
+<div class="panel">
+  <h2>All insights</h2>
+  {% if insights %}
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in insights %}
+          <tr>
+            <td>{{ a.title }}</td>
+            <td>{{ a.type }}</td>
+            <td>{{ a.author }}</td>
+            <td>
+              {% if a.status == 'published' %}
+                <span class="badge published">Published</span>
+              {% else %}
+                <span class="badge draft">Draft</span>
+              {% endif %}
+            </td>
+            <td>{{ a.date }}</td>
+            <td>
+              <div class="actions">
+                <a class="btn alt small" href="/admin/insights/{{ a.slug }}/edit">Edit</a>
+                {% if a.status == 'draft' %}
+                  <a class="btn small" href="/admin/insights/{{ a.slug }}/publish">Publish</a>
+                {% else %}
+                  <a class="btn alt small" href="/insights/{{ a.type }}/{{ a.slug }}">View</a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="empty-state">
+      <h3>No insights yet</h3>
+      <p><a href="/admin/insights/new">Create your first insight</a></p>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
