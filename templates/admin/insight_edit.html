@@ -3,58 +3,114 @@
 {% block page_title %}Edit insight{% endblock %}
 {% block page_subtitle %}<p class="subtitle">Editing: {{ a.title }}</p>{% endblock %}
 
+{% block head %}
+<script src="{{ url_for('static', filename='insight-preview.js') }}" defer></script>
+{% endblock %}
+
 {% block main %}
 
-<form class="admin-form panel" method="post" action="/admin/insights/{{ a.slug }}/edit">
-  <label for="title">Title</label>
-  <input type="text" id="title" name="title" required value="{{ f.title or a.title }}">
+<form class="insight-editor" method="post" action="/admin/insights/{{ a.slug }}/edit">
 
-  <label for="type">Type</label>
-  <select id="type" name="type">
-    <option value="commentary" {% if (f.type or a.type) == 'commentary' %}selected{% endif %}>Commentary</option>
-    <option value="research" {% if (f.type or a.type) == 'research' %}selected{% endif %}>Research</option>
-    <option value="news" {% if (f.type or a.type) == 'news' %}selected{% endif %}>News</option>
-    <option value="multimedia" {% if (f.type or a.type) == 'multimedia' %}selected{% endif %}>Multimedia</option>
-  </select>
+  <!-- ============ FORM COLUMN ============ -->
+  <div class="form-column">
+    <h2>Write</h2>
 
-  <label for="standfirst">Standfirst</label>
-  <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or a.standfirst }}">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" required value="{{ f.title or a.title }}">
+    {% if errors.title %}<p class="field-error">{{ errors.title }}</p>{% endif %}
 
-  <label for="body">Story / body</label>
-  <textarea id="body" name="body" required>{{ f.body or a.body }}</textarea>
+    <label for="type">Type</label>
+    <select id="type" name="type">
+      <option value="commentary" {% if (f.type or a.type) == 'commentary' %}selected{% endif %}>Commentary</option>
+      <option value="research" {% if (f.type or a.type) == 'research' %}selected{% endif %}>Research</option>
+      <option value="news" {% if (f.type or a.type) == 'news' %}selected{% endif %}>News</option>
+      <option value="multimedia" {% if (f.type or a.type) == 'multimedia' %}selected{% endif %}>Multimedia</option>
+    </select>
 
-  <label for="image_url">Image URL</label>
-  <input type="url" id="image_url" name="image_url" value="{{ f.image_url or a.image_url or '' }}">
+    <label for="standfirst">Standfirst</label>
+    <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or a.standfirst }}">
 
-  <label for="link_url">Related link</label>
-  <input type="url" id="link_url" name="link_url" value="{{ f.link_url or a.link_url or '' }}">
+    <label for="author">Author</label>
+    <input type="text" id="author" name="author" value="{{ f.author or 'TMF Staff' }}" placeholder="Author name">
 
-  <label>Card colour</label>
-  <div class="colour-options">
-    {% set current = f.colour or a.colour or 'teal' %}
-    <input type="radio" id="c-teal" name="colour" value="teal" {% if current == 'teal' %}checked{% endif %}>
-    <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
+    <label for="body">Story</label>
+    <textarea id="body" name="body" required>{{ f.body or a.body[0] if a.body is iterable and a.body is not string else a.body }}</textarea>
 
-    <input type="radio" id="c-deep" name="colour" value="deep" {% if current == 'deep' %}checked{% endif %}>
-    <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
+    <label for="image_url">Image URL</label>
+    <input type="url" id="image_url" name="image_url" value="{{ f.image_url or a.image_url or '' }}" placeholder="https://example.com/image.jpg">
 
-    <input type="radio" id="c-burg" name="colour" value="burg" {% if current == 'burg' %}checked{% endif %}>
-    <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+    <label for="link_url">Related link</label>
+    <input type="url" id="link_url" name="link_url" value="{{ f.link_url or a.link_url or '' }}" placeholder="https://...">
 
-    <input type="radio" id="c-gold" name="colour" value="gold" {% if current == 'gold' %}checked{% endif %}>
-    <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+    <label>Card colour</label>
+    <div class="colour-options">
+      {% set current = f.colour or a.colour or 'teal' %}
+      <input type="radio" id="c-teal" name="colour" value="teal" {% if current == 'teal' %}checked{% endif %}>
+      <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
 
-    <input type="radio" id="c-forest" name="colour" value="forest" {% if current == 'forest' %}checked{% endif %}>
-    <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+      <input type="radio" id="c-deep" name="colour" value="deep" {% if current == 'deep' %}checked{% endif %}>
+      <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
 
-    <input type="radio" id="c-slate" name="colour" value="slate" {% if current == 'slate' %}checked{% endif %}>
-    <label for="c-slate"><span class="colour-swatch swatch-slate"></span> Slate</label>
+      <input type="radio" id="c-burg" name="colour" value="burg" {% if current == 'burg' %}checked{% endif %}>
+      <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+
+      <input type="radio" id="c-gold" name="colour" value="gold" {% if current == 'gold' %}checked{% endif %}>
+      <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+
+      <input type="radio" id="c-forest" name="colour" value="forest" {% if current == 'forest' %}checked{% endif %}>
+      <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+
+      <input type="radio" id="c-slate" name="colour" value="slate" {% if current == 'slate' %}checked{% endif %}>
+      <label for="c-slate"><span class="colour-swatch swatch-slate"></span> Slate</label>
+    </div>
+
+    <div class="form-actions">
+  <button class="btn" type="submit" name="action" value="publish">Publish</button>
+  <button class="btn alt" type="submit" name="action" value="draft">Save draft</button>
+  <a class="btn alt" href="/admin/insights">Cancel</a>
+</div>
   </div>
 
-  <div class="form-actions">
-    <button class="btn" type="submit">Save changes</button>
-    <a class="btn alt" href="/admin/insights">Cancel</a>
+  <!-- ============ PREVIEW COLUMN ============ -->
+  <div class="preview-column">
+    <h2>Preview <span class="preview-label">Live</span></h2>
+
+    <div class="preview-card colour-{{ a.colour or 'teal' }}">
+      <div class="preview-card-image">
+        {% if a.image_url %}
+          <img src="{{ a.image_url }}" alt="Insight image">
+        {% else %}
+          <div class="preview-image-placeholder">No image yet</div>
+        {% endif %}
+      </div>
+      <div class="preview-card-body">
+        <span class="preview-type-badge {{ a.type }}">{{ a.type }}</span>
+        <h3 class="preview-title">{{ a.title }}</h3>
+        <p class="preview-standfirst">{{ a.standfirst or 'No standfirst.' }}</p>
+        <div class="preview-meta">
+          <span class="author">{{ a.author }}</span>
+          <span class="date">{{ a.date }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-body">
+      <h3>Body</h3>
+      {% if a.body %}
+        {% for para in a.body %}
+          <p>{{ para }}</p>
+        {% endfor %}
+      {% else %}
+        <p style="color: var(--muted); font-style: italic;">No body yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="preview-status">
+      <span class="dot"></span>
+      <span>Preview updates as you type</span>
+    </div>
   </div>
+
 </form>
 
 {% endblock %}
