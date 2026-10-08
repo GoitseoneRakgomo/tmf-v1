@@ -507,7 +507,7 @@ def admin_insight_new():
                 type=f.get("type", "commentary"),
                 title=f.get("title", ""),
                 standfirst=f.get("standfirst", ""),
-                author="Admin",
+                author=f.get("author", "TMF Staff").strip() or "TMF Staff",
                 date="—",
                 mins=5,
                 body=[f.get("body", "")],
@@ -541,10 +541,19 @@ def admin_insight_edit(slug):
             a["link_url"] = f.get("link_url", "")
             a["colour"] = f.get("colour", "teal")
             a["url"] = f"/insights/{a['type']}/{a['slug']}"
-            flash("Insight updated.", "success")
+            a["author"] = f.get("author", a["author"])
+
+            # Handle the action
+            action = f.get("action", "draft")
+            if action == "publish":
+                a["status"] = "published"
+                flash(f"Published: {a['title']}", "success")
+            else:
+                a["status"] = "draft"
+                flash(f"Saved as draft: {a['title']}", "info")
+
             return redirect(url_for("admin_insights"))
     return render_template("admin/insight_edit.html", a=a, errors=errors, f=f)
-
 
 @app.route("/admin/insights/<slug>/publish", methods=["POST", "GET"])
 def admin_insight_publish(slug):

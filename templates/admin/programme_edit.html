@@ -1,0 +1,294 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit programme{% endblock %}
+{% block page_title %}Edit programme{% endblock %}
+{% block page_subtitle %}<p class="subtitle">Editing: {{ p.title }}</p>{% endblock %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='programme-preview.js') }}" defer></script>
+{% endblock %}
+
+{% block main %}
+
+<form class="programme-editor" method="post" action="/admin/programmes/{{ p.slug }}/edit">
+
+  <!-- ============ FORM COLUMN ============ -->
+  <div class="form-column">
+    <h2>Write</h2>
+
+    <label for="kind">Type</label>
+    <select id="kind" name="kind">
+      <option value="event" {% if (f.kind or p.kind) == 'event' %}selected{% endif %}>Event</option>
+      <option value="course" {% if (f.kind or p.kind) == 'course' %}selected{% endif %}>Course</option>
+    </select>
+
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" required value="{{ f.title or p.title }}">
+    {% if errors.title %}<p class="field-error">{{ errors.title }}</p>{% endif %}
+
+    <label for="category">Category</label>
+    <select id="category" name="category">
+      {% for val, label in categories %}
+        <option value="{{ val }}" {% if (f.category or p.category) == val %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="standfirst">Standfirst</label>
+    <input type="text" id="standfirst" name="standfirst" value="{{ f.standfirst or p.standfirst }}">
+
+    <label for="body">Description</label>
+    <textarea id="body" name="body">{{ f.body or p.body }}</textarea>
+
+    <label for="date">Start date</label>
+    <input type="date" id="date" name="date" required value="{{ f.date or p.date }}">
+    {% if errors.date %}<p class="field-error">{{ errors.date }}</p>{% endif %}
+
+    <label for="end_date">End date</label>
+    <input type="date" id="end_date" name="end_date" value="{{ f.end_date or p.end_date }}">
+
+    <label for="time">Time</label>
+    <input type="text" id="time" name="time" value="{{ f.time or p.time }}">
+
+    <label for="place">Place</label>
+    <input type="text" id="place" name="place" value="{{ f.place or p.place }}">
+
+    <label for="venue">Venue</label>
+    <input type="text" id="venue" name="venue" value="{{ f.venue or p.venue }}">
+
+    <label for="price">Price (ZAR, 0 for free)</label>
+    <input type="number" id="price" name="price" value="{{ f.price or p.price }}" min="0">
+
+    <label for="price_label">Price label</label>
+    <input type="text" id="price_label" name="price_label" value="{{ f.price_label or p.price_label }}">
+
+    <label for="capacity">Capacity</label>
+    <input type="number" id="capacity" name="capacity" value="{{ f.capacity or p.capacity }}" min="0">
+
+    <label for="register_url">Register / Book URL</label>
+    <input type="url" id="register_url" name="register_url" value="{{ f.register_url or p.register_url }}">
+
+    <label for="image_url">Image URL</label>
+    <input type="url" id="image_url" name="image_url" value="{{ f.image_url or p.image_url }}">
+
+    <hr class="form-divider">
+    <p class="muted-text form-section-note">Course-only fields (leave blank for events)</p>
+
+    <label for="facilitator">Facilitator</label>
+    <input type="text" id="facilitator" name="facilitator" value="{{ f.facilitator or p.facilitator }}">
+
+    <label for="format">Format</label>
+    <select id="format" name="format">
+      <option value="">—</option>
+      <option value="In-person" {% if (f.format or p.format) == 'In-person' %}selected{% endif %}>In-person</option>
+      <option value="Online" {% if (f.format or p.format) == 'Online' %}selected{% endif %}>Online</option>
+      <option value="Hybrid" {% if (f.format or p.format) == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+    </select>
+
+    <label for="duration">Duration</label>
+    <input type="text" id="duration" name="duration" value="{{ f.duration or p.duration }}">
+
+    <label for="outline">Outline</label>
+    <textarea id="outline" name="outline">{{ f.outline or p.outline }}</textarea>
+
+    <label for="outcomes">Outcomes</label>
+    <textarea id="outcomes" name="outcomes">{{ f.outcomes or p.outcomes }}</textarea>
+
+    <label>Card colour</label>
+    <div class="colour-options">
+      {% set current = f.colour or p.colour or 'teal' %}
+      <input type="radio" id="c-teal" name="colour" value="teal" {% if current == 'teal' %}checked{% endif %}>
+      <label for="c-teal"><span class="colour-swatch swatch-teal"></span> Teal</label>
+
+      <input type="radio" id="c-deep" name="colour" value="deep" {% if current == 'deep' %}checked{% endif %}>
+      <label for="c-deep"><span class="colour-swatch swatch-deep"></span> Deep</label>
+
+      <input type="radio" id="c-burg" name="colour" value="burg" {% if current == 'burg' %}checked{% endif %}>
+      <label for="c-burg"><span class="colour-swatch swatch-burg"></span> Burgundy</label>
+
+      <input type="radio" id="c-gold" name="colour" value="gold" {% if current == 'gold' %}checked{% endif %}>
+      <label for="c-gold"><span class="colour-swatch swatch-gold"></span> Gold</label>
+
+      <input type="radio" id="c-forest" name="colour" value="forest" {% if current == 'forest' %}checked{% endif %}>
+      <label for="c-forest"><span class="colour-swatch swatch-forest"></span> Forest</label>
+
+      <input type="radio" id="c-slate" name="colour" value="slate" {% if current == 'slate' %}checked{% endif %}>
+      <label for="c-slate"><span class="colour-swatch swatch-slate"></span> Slate</label>
+    </div>
+
+    <label>
+      <input type="checkbox" name="featured" {% if p.featured %}checked{% endif %}>
+      Feature on homepage
+    </label>
+
+    <div class="form-actions">
+      <button class="btn" type="submit" name="action" value="publish">Publish</button>
+      <button class="btn alt" type="submit" name="action" value="draft">Save draft</button>
+      <a class="btn alt" href="/admin/programmes">Cancel</a>
+    </div>
+  </div>
+
+  <!-- ============ PREVIEW COLUMN ============ -->
+  <div class="preview-column">
+    <h2>
+      Preview
+      {% if p.status == 'published' %}
+        <span class="preview-label published">Published</span>
+      {% else %}
+        <span class="preview-label draft">Draft</span>
+      {% endif %}
+    </h2>
+
+    <div class="programme-preview colour-{{ p.colour or 'teal' }}">
+
+      <!-- Hero image with ribbon -->
+      <div class="programme-preview-hero">
+        <div class="hero-ribbon">
+          <span class="preview-badge {{ p.kind }}">{{ p.kind }}</span>
+          <span class="preview-badge category">{{ p.category or 'talk' }}</span>
+        </div>
+        {% if p.image_url %}
+          <img src="{{ p.image_url }}" alt="Programme image">
+        {% else %}
+          <div class="preview-image-placeholder">No image yet</div>
+        {% endif %}
+      </div>
+
+      <!-- Body -->
+      <div class="programme-preview-body">
+
+        <h3 class="programme-preview-title">{{ p.title }}</h3>
+        <p class="programme-preview-standfirst">{{ p.standfirst or 'No standfirst.' }}</p>
+
+        <!-- Meta row -->
+        <div class="programme-preview-meta">
+          <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <span class="meta-value meta-date">
+              {% if p.end_date and p.end_date != p.date %}
+                {{ p.date }} – {{ p.end_date }}
+              {% else %}
+                {{ p.date or '—' }}
+              {% endif %}
+            </span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value meta-time">{{ p.time or '—' }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Place</span>
+            <span class="meta-value meta-place">{{ p.place or '—' }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Venue</span>
+            <span class="meta-value meta-venue">{{ p.venue or '—' }}</span>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="programme-preview-price">
+          <span class="price-label">Price</span>
+          <span class="price-value">{{ p.price_label or 'Free' }}</span>
+        </div>
+
+        <!-- CTA -->
+        <a class="programme-preview-cta" href="#">
+          {% if p.kind == 'course' %}Book now{% else %}Register{% endif %}
+        </a>
+
+        <!-- Capacity -->
+        {% if p.capacity and p.capacity > 0 %}
+          <div class="programme-preview-capacity">
+            <div class="cap-text">
+              <span>Capacity</span>
+              <span><strong>{{ p.capacity }}</strong> seats</span>
+            </div>
+            <div class="bar"><span style="width: 0%"></span></div>
+          </div>
+        {% else %}
+          <div class="programme-preview-capacity is-hidden">
+            <div class="cap-text">
+              <span>Capacity</span>
+              <span><strong>0</strong> seats</span>
+            </div>
+            <div class="bar"><span></span></div>
+          </div>
+        {% endif %}
+
+        <!-- Description -->
+        {% if p.body %}
+  <div class="programme-preview-section description">
+    <h4>Description</h4>
+    {% if p.body is string %}
+      {% for para in p.body.split('\n\n') %}
+        <p>{{ para }}</p>
+      {% endfor %}
+    {% elif p.body is iterable %}
+      {% for para in p.body %}
+        <p>{{ para }}</p>
+      {% endfor %}
+    {% else %}
+      <p>{{ p.body }}</p>
+    {% endif %}
+  </div>
+{% else %}
+          <div class="programme-preview-section description is-hidden">
+            <h4>Description</h4>
+            <p>Description will appear here.</p>
+          </div>
+        {% endif %}
+
+        <!-- Course extras -->
+        {% if p.kind == 'course' %}
+          <div class="programme-preview-section course-extras">
+            <h4>Course details</h4>
+            <dl class="programme-preview-details">
+              <dt>Facilitator</dt>
+              <dd class="course-facilitator">{{ p.facilitator or '—' }}</dd>
+
+              <dt>Format</dt>
+              <dd class="course-format">{{ p.format or '—' }}</dd>
+
+              <dt>Duration</dt>
+              <dd class="course-duration">{{ p.duration or '—' }}</dd>
+
+              <dt>Outline</dt>
+              <dd class="course-outline">{{ p.outline or '—' }}</dd>
+
+              <dt>Outcomes</dt>
+              <dd class="course-outcomes">{{ p.outcomes or '—' }}</dd>
+            </dl>
+          </div>
+        {% else %}
+          <div class="programme-preview-section course-extras is-hidden">
+            <h4>Course details</h4>
+            <dl class="programme-preview-details">
+              <dt>Facilitator</dt>
+              <dd class="course-facilitator">—</dd>
+
+              <dt>Format</dt>
+              <dd class="course-format">—</dd>
+
+              <dt>Duration</dt>
+              <dd class="course-duration">—</dd>
+
+              <dt>Outline</dt>
+              <dd class="course-outline">—</dd>
+
+              <dt>Outcomes</dt>
+              <dd class="course-outcomes">—</dd>
+            </dl>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <div class="preview-status">
+      <span class="dot"></span>
+      <span>Preview updates as you type</span>
+    </div>
+  </div>
+
+</form>
+
+{% endblock %}
