@@ -13,11 +13,18 @@
 <!-- ============ HEADER ============ -->
 <div class="overview-header">
   <div class="greeting">
+    <p class="greeting-line">Good morning</p>
     <p class="date">{{ today }}</p>
   </div>
   <div class="quick-actions">
-    <a class="btn" href="/admin/insights/new">+ Insight</a>
-    <a class="btn alt" href="/admin/programmes/new">+ Programme</a>
+    <a class="btn" href="/admin/insights/new">
+      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      Insight
+    </a>
+    <a class="btn alt" href="/admin/programmes/new">
+      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      Programme
+    </a>
   </div>
 </div>
 
@@ -25,9 +32,24 @@
 <div class="hero-row">
 
   <div class="hero-card">
+    <!-- Ghosted sparkline behind the value -->
+    <svg class="hero-spark" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
+      <polyline points="0,80 40,72 80,66 120,50 160,55 200,38 240,30 300,18"
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.18"/>
+    </svg>
+
     <div class="hero-label">Revenue this year</div>
     <div class="hero-value">R{{ "{:,}".format(total_revenue) }}</div>
-    <div class="hero-trend">↑ 12% vs last month</div>
+
+    <div class="hero-trend">
+      <span class="trend-chip up">
+        <span aria-hidden="true">↑</span>
+        <span class="sr-only">Increase of</span>
+        12%
+      </span>
+      <span class="trend-caption">vs last month</span>
+    </div>
+
     <div class="hero-sub">{{ total_donations_count }} donations from {{ donor_count }} donors</div>
   </div>
 
@@ -35,22 +57,22 @@
     <h3>This week</h3>
     <ul class="activity-list">
       <li>
-        <span class="dot teal"></span>
+        <span class="dot teal" aria-hidden="true"></span>
         <span class="activity-text">New donations</span>
         <span class="activity-count">3</span>
       </li>
       <li>
-        <span class="dot burg"></span>
+        <span class="dot burg" aria-hidden="true"></span>
         <span class="activity-text">Drafts to review</span>
         <span class="activity-count">{{ draft_insights_count + draft_courses_count }}</span>
       </li>
       <li>
-        <span class="dot gold"></span>
+        <span class="dot gold" aria-hidden="true"></span>
         <span class="activity-text">Events in next 30 days</span>
         <span class="activity-count">{{ upcoming_events_count }}</span>
       </li>
       <li>
-        <span class="dot forest"></span>
+        <span class="dot forest" aria-hidden="true"></span>
         <span class="activity-text">New subscribers</span>
         <span class="activity-count">2</span>
       </li>
@@ -60,34 +82,76 @@
 </div>
 
 <!-- ============ MINI STAT CARDS ============ -->
+<!-- Each card gets a DIFFERENT visual treatment: delta chip, bar, ring, sparkline -->
 <div class="mini-stat-grid">
 
-  <a class="mini-stat" href="/admin/insights">
-    <div class="mini-label">Insights</div>
+  <!-- Insights: delta chip + thin bar -->
+  <a class="mini-stat cat-teal" href="/admin/insights">
+    <div class="mini-head">
+      <div class="mini-label">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg>
+        Insights
+      </div>
+      <span class="delta-chip up" aria-label="up 4 this week">↑4</span>
+    </div>
     <div class="mini-value">{{ published_insights_count }}</div>
     <div class="mini-sub">{{ draft_insights_count }} draft{{ 's' if draft_insights_count != 1 else '' }}</div>
-    <div class="mini-bar"><span style="width: {{ insights_bar }}%"></span></div>
+    <div class="mini-bar" role="progressbar" aria-valuenow="{{ insights_bar }}" aria-valuemin="0" aria-valuemax="100" aria-label="Insights progress">
+      <span style="width: {{ insights_bar }}%"></span>
+    </div>
   </a>
 
-  <a class="mini-stat" href="/admin/programmes?kind=event">
-    <div class="mini-label">Events</div>
+  <!-- Events: bar -->
+  <a class="mini-stat cat-burg" href="/admin/programmes?kind=event">
+    <div class="mini-head">
+      <div class="mini-label">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Events
+      </div>
+      <span class="delta-chip flat" aria-label="no change">→</span>
+    </div>
     <div class="mini-value">{{ published_events_count }}</div>
     <div class="mini-sub">{{ upcoming_events_count }} upcoming</div>
-    <div class="mini-bar burg"><span style="width: {{ events_bar }}%"></span></div>
+    <div class="mini-bar burg" role="progressbar" aria-valuenow="{{ events_bar }}" aria-valuemin="0" aria-valuemax="100" aria-label="Events progress">
+      <span style="width: {{ events_bar }}%"></span>
+    </div>
   </a>
 
-  <a class="mini-stat" href="/admin/programmes?kind=course">
-    <div class="mini-label">Courses</div>
-    <div class="mini-value">{{ published_courses_count }}</div>
+  <!-- Courses: ring -->
+  <a class="mini-stat cat-gold" href="/admin/programmes?kind=course">
+    <div class="mini-head">
+      <div class="mini-label">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h7M8 11h7"/></svg>
+        Courses
+      </div>
+    </div>
+    <div class="mini-value-row">
+      <div class="mini-value">{{ published_courses_count }}</div>
+      <div class="mini-ring" style="--p: {{ courses_bar }}" role="img" aria-label="{{ courses_bar }} percent">
+        <svg viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15.5" class="ring-track"/>
+          <circle cx="18" cy="18" r="15.5" class="ring-fill"/>
+        </svg>
+        <span class="ring-label">{{ courses_bar }}%</span>
+      </div>
+    </div>
     <div class="mini-sub">{{ draft_courses_count }} draft{{ 's' if draft_courses_count != 1 else '' }}</div>
-    <div class="mini-bar gold"><span style="width: {{ courses_bar }}%"></span></div>
   </a>
 
-  <a class="mini-stat" href="/admin/subscribers">
-    <div class="mini-label">Subscribers</div>
+  <!-- Subscribers: sparkline -->
+  <a class="mini-stat cat-forest" href="/admin/subscribers">
+    <div class="mini-head">
+      <div class="mini-label">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="10" r="2.5"/><path d="M14 20a4.5 4.5 0 0 1 7 0"/></svg>
+        Subscribers
+      </div>
+    </div>
     <div class="mini-value">{{ active_subscribers_count }}</div>
     <div class="mini-sub">of {{ total_subscribers_count }} total</div>
-    <div class="mini-bar forest"><span style="width: {{ subscribers_bar }}%"></span></div>
+    <svg class="mini-spark" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+      <polyline points="0,16 14,14 28,15 42,11 56,12 70,8 84,6 100,4"
+                fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
   </a>
 
 </div>
@@ -95,26 +159,33 @@
 <!-- ============ ATTENTION + COMING UP ============ -->
 <div class="overview-columns">
 
-  <div class="attention-card">
+  <div class="attention-card cat-burg">
     <h3>Needs attention</h3>
     {% if attention_items %}
       <ul class="attention-list">
         {% for item in attention_items %}
-          <li><a href="{{ item.url }}">{{ item.text }}</a></li>
+          <li>
+            <span class="attention-dot" aria-hidden="true"></span>
+            <a href="{{ item.url }}">{{ item.text }}</a>
+          </li>
         {% endfor %}
       </ul>
     {% else %}
-      <p class="muted-text">Nothing needs your attention right now.</p>
+      <div class="empty-state compact">
+        <svg class="empty-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <h4>All clear</h4>
+        <p>Nothing needs your attention right now.</p>
+      </div>
     {% endif %}
   </div>
 
-  <div class="coming-up-card">
+  <div class="coming-up-card cat-gold">
     <h3>Coming up</h3>
     {% if recent_events %}
       <ul class="event-list">
         {% for e in recent_events %}
           <li>
-            <div class="event-date">
+            <div class="calendar-chip" aria-hidden="true">
               <span class="day">{{ e.date[8:10] }}</span>
               <span class="mon">{{ e.date[5:7] }}</span>
             </div>
@@ -126,7 +197,11 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="muted-text">No upcoming events.</p>
+      <div class="empty-state compact">
+        <svg class="empty-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <h4>No upcoming events</h4>
+        <p><a href="/admin/programmes/new">Create one</a></p>
+      </div>
     {% endif %}
   </div>
 
@@ -135,8 +210,11 @@
 <!-- ============ RECENT ACTIVITY ============ -->
 <div class="overview-columns">
 
-  <div class="panel">
-    <h2>Recent donations <a class="btn alt small" href="/admin/donations">View all</a></h2>
+  <div class="panel cat-teal">
+    <div class="card-head">
+      <h2>Recent donations</h2>
+      <a class="btn alt small" href="/admin/donations">View all</a>
+    </div>
     {% if recent_donations %}
       <ul class="compact-list">
         {% for d in recent_donations %}
@@ -149,14 +227,18 @@
       </ul>
     {% else %}
       <div class="empty-state">
+        <svg class="empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
         <h3>No donations yet</h3>
         <p>Once donations come in, they'll appear here.</p>
       </div>
     {% endif %}
   </div>
 
-  <div class="panel">
-    <h2>Recent insights <a class="btn alt small" href="/admin/insights">View all</a></h2>
+  <div class="panel cat-teal">
+    <div class="card-head">
+      <h2>Recent insights</h2>
+      <a class="btn alt small" href="/admin/insights">View all</a>
+    </div>
     {% if recent_insights %}
       <ul class="compact-list">
         {% for a in recent_insights %}
@@ -168,6 +250,7 @@
       </ul>
     {% else %}
       <div class="empty-state">
+        <svg class="empty-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg>
         <h3>No insights yet</h3>
         <p><a href="/admin/insights/new">Create your first insight</a></p>
       </div>
