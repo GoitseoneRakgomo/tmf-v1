@@ -1281,3 +1281,64 @@ body.admin-body {
 .form-section-note {
   margin-bottom: 0.5rem;
 }
+/* Focal point */
+.hero-value { font-size: 3rem; font-variant-numeric: tabular-nums; }
+.hero-spark { position: absolute; inset: auto 0 0 0; width: 100%; height: 60%; color: var(--accent, #2a9d8f); pointer-events: none; }
+.hero-card { position: relative; overflow: hidden; }
+
+/* Trend chip */
+.trend-chip { display:inline-flex; gap:.25rem; align-items:center; padding:.15rem .5rem; border-radius:999px; font-size:.8rem; font-weight:600; }
+.trend-chip.up { background: rgba(42,157,143,.12); color: #2a9d8f; }
+.trend-chip.flat { background: rgba(0,0,0,.06); }
+.trend-caption { color:#6b7280; font-size:.8rem; margin-left:.4rem; }
+
+/* Delta chip */
+.delta-chip { font-size:.75rem; font-weight:600; padding:.1rem .4rem; border-radius:999px; }
+.delta-chip.up { background: rgba(42,157,143,.12); color:#2a9d8f; }
+.delta-chip.flat { background: rgba(0,0,0,.06); color:#6b7280; }
+
+/* Category accents */
+.cat-teal   { --cat: #2a9d8f; }
+.cat-burg   { --cat: #9b2226; }
+.cat-gold   { --cat: #e9c46a; }
+.cat-forest { --cat: #264653; }
+.mini-stat.cat-teal   .mini-label { color: var(--cat); }
+/* …repeat per category, or use a single rule: */
+.mini-stat .mini-label { color: var(--cat); }
+.mini-bar > span { background: var(--cat); }
+
+/* Ring */
+.mini-ring { position:relative; width:40px; height:40px; }
+.mini-ring svg { transform: rotate(-90deg); width:100%; height:100%; }
+.ring-track { fill:none; stroke: rgba(0,0,0,.08); stroke-width:3; }
+.ring-fill  { fill:none; stroke: var(--cat); stroke-width:3; stroke-dasharray: calc(var(--p) * 0.973) 100; stroke-linecap: round; }
+.ring-label { position:absolute; inset:0; display:grid; place-items:center; font-size:.65rem; font-weight:600; }
+
+/* Sparkline */
+.mini-spark { width:100%; height:22px; color: var(--cat); }
+.mini-spark polyline { stroke: var(--cat); }
+
+/* Calendar chip */
+.calendar-chip { display:flex; flex-direction:column; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; background: rgba(233,196,106,.18); color:#8a6d1f; line-height:1; }
+.calendar-chip .day { font-size:1.05rem; font-weight:700; font-variant-numeric: tabular-nums; }
+.calendar-chip .mon { font-size:.65rem; text-transform:uppercase; letter-spacing:.04em; }
+
+/* Card head */
+.card-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.5rem; }
+.card-head h2 { margin:0; }
+
+/* Empty states */
+.empty-state { text-align:center; padding:1.5rem 1rem; }
+.empty-state.compact { padding:1rem .5rem; }
+.empty-icon { color: var(--cat, #9ca3af); opacity:.7; margin-bottom:.5rem; }
+.empty-state h3, .empty-state h4 { margin:.25rem 0; }
+.empty-state p { margin:.25rem 0 0; color:#6b7280; font-size:.85rem; }
+
+/* Amounts align */
+.item-amount { margin-left:auto; font-variant-numeric: tabular-nums; }
+
+/* Interaction language (suggested) */
+.mini-stat { transition: transform .12s ease, box-shadow .12s ease; }
+.mini-stat:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+.compact-list li, .event-list li, .attention-list li { transition: background .12s ease; }
+.compact-list li:hover, .event-list li:hover, .attention-list li:hover { background: rgba(0,0,0,.03); }

@@ -3,7 +3,7 @@
 {% block main %}
 
 <!-- 1. Hero -->
-<section class="page-banner" style="background-image: url('{{ url_for('static', filename='images/a1.jfif') }}');">
+<section class="page-banner home-hero" style="background-image: url('{{ url_for('static', filename='images/a1.jfif') }}');">
   <div class="wrap grid split" style="align-items: center; gap: 3rem;">
     <div>
       <p class="eyebrow" style="color: var(--teal)">Think and Action Tank</p>
@@ -22,9 +22,13 @@
   <div class="wrap">
     <p class="eyebrow">Latest thinking</p>
     <div class="grid split">
-      <div class="image-block">
-        <img src="{{ url_for('static', filename='images/l1.jfif') }}" alt="Latest thinking lead image" style="width:100%; height:100%; object-fit:cover;">
-      </div>
+    <div class="image-block" style="aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px;">
+  <img src="https://i.pinimg.com/736x/c0/3c/7b/c03c7b9c2d745f1f929ce535026a46e5.jpg"
+       alt="Latest thinking lead image"
+       loading="lazy"
+       referrerpolicy="no-referrer"
+       style="width:100%; height:100%; object-fit:cover; display:block;">
+</div>
       <div style="display: flex; flex-direction: column; justify-content: center;">
         <div><span class="pill">{{ lead.type|capitalize }}</span></div>
         <h2 style="margin: 1rem 0;"><a href="{{ lead.url }}">{{ lead.title }}</a></h2>

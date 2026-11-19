@@ -10,15 +10,6 @@ a{color:var(--burg)}
 .hdr,.dark,.ftr{background:var(--deep);color:var(--white)}
 .dark a:not(.btn),.ftr a{color:var(--teal)}
 .bar{display:flex;align-items:center;gap:1rem;min-height:64px;flex-wrap:wrap;padding-top:.5rem;padding-bottom:.5rem}
-.logo img{height:44px;display:block}.logo{order:1}
-.burger{margin-left:auto;font-size:1.75rem;cursor:pointer;padding:.25rem .5rem;order:2}
-.btn-give{order:3}
-.navtoggle{position:absolute;opacity:0}
-.navtoggle:focus-visible+.burger{outline:3px solid var(--teal)}
-.nav{display:none;order:4;width:100%;flex-direction:column}
-.navtoggle:checked~.nav{display:flex}
-.nav a{color:var(--white);text-decoration:none;padding:.75rem 0;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.875rem;border-bottom:1px solid #3b4d4d}
-.nav a[aria-current]{color:var(--teal)}
 .btn{display:inline-block;background:var(--burg);color:#fff;padding:.7rem 1.25rem;border-radius:4px;text-decoration:none;font:700 1rem var(--sans);border:2px solid var(--burg);cursor:pointer}
 .btn.alt{background:transparent;color:inherit;border-color:currentColor}
 .btn[aria-disabled=true]{opacity:.5;pointer-events:none}
@@ -53,93 +44,334 @@ input,select{font:inherit;padding:.65rem;border:1px solid #6b7777;border-radius:
 .err{color:var(--burg);font-weight:600;margin:.25rem 0}
 @media(min-width:40rem){.c2{grid-template-columns:repeat(2,1fr)}.c3,.c4,.c5{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:56rem){
- body{padding-bottom:0}.tabs,.burger{display:none}
- .nav{display:flex;flex-direction:row;width:auto;order:2;margin-left:auto;gap:1.5rem}.nav a{border:0;padding:.5rem 0}
  .c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}.c5{grid-template-columns:repeat(5,1fr)}
  .split{grid-template-columns:2fr 1fr;gap:2rem}.rail{grid-template-columns:14rem 1fr;gap:2rem}.sec{padding:3rem 0}}
-/* Update the existing .hdr rule */
+
+/* ============================================================
+   HEADER
+   ============================================================ */
 .hdr, .dark, .ftr {
   background: var(--deep);
   color: var(--white);
 }
 
-/* Add this new rule specifically for the header */
 .hdr {
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: rgba(37, 52, 52, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(127, 186, 172, 0.092);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  overflow: visible;
 }
-/* Update the existing .btn rule */
+
+.hdr .bar {
+  position: relative;
+  z-index: 1;
+}
+
+.hdr.is-scrolled {
+  background: rgba(37, 52, 52, 0.98);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+}
+
+.home-page .hdr {
+  position: fixed;
+  inset: 0 0 auto;
+  background: rgba(37, 52, 52, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: none;
+}
+
+.home-page .hdr.is-scrolled {
+  background: rgba(37, 52, 52, 0.86);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* ============================================================
+   LOGO LOCKUP
+   ============================================================ */
+.logo {
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .35rem .5rem .35rem 0;
+  text-decoration: none;
+  color: var(--white);
+  border-radius: 6px;
+  transition: opacity 0.15s ease;
+}
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+  flex: none;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+.logo-name {
+  font: 700 1.05rem var(--serif);
+  color: var(--white);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.logo-sub {
+  font: 600 0.68rem var(--sans);
+  color: var(--teal);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .logo-text { display: none; }
+}
+
+/* ============================================================
+   NAV TOGGLE (mobile checkbox)
+   ============================================================ */
+.navtoggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================================
+   BURGER
+   ============================================================ */
+.burger {
+  margin-left: auto;
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--white);
+  font-size: 1.75rem;
+  line-height: 1;
+  transition: background 0.15s ease;
+}
+.burger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.navtoggle:focus-visible + .burger {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   NAV CONTAINER
+   ============================================================ */
+.nav {
+  display: none;
+  order: 4;
+  width: 100%;
+  height: 80px;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+}
+
+.navtoggle:checked ~ .nav {
+  display: flex;
+}
+
+/* ============================================================
+   NAV LINKS
+   ============================================================ */
+.nav a {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  color: var(--white);
+  text-decoration: none;
+  padding: 1rem .25rem;
+  min-height: 48px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: .875rem;
+  border-bottom: 1px solid #3b4d4d;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav a:hover {
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.04);
+}
+.nav a[aria-current="page"] {
+  color: var(--teal);
+}
+
+/* ============================================================
+   GIVE BUTTON in header
+   ============================================================ */
+.btn-give {
+  order: 3;
+}
+.btn-give .btn {
+  background: var(--teal);
+  color: var(--deep);
+  border-color: var(--teal);
+  padding: .65rem 1.25rem;
+  min-height: 42px;
+  font-size: .95rem;
+  box-shadow: 0 4px 14px rgba(127, 186, 172, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.btn-give .btn:hover {
+  background: #94cabd;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(127, 186, 172, 0.35);
+}
+
+/* ============================================================
+   DESKTOP NAV (≥56rem)
+   ============================================================ */
+@media (min-width: 56rem) {
+  body { padding-bottom: 0; }
+  .tabs, .burger { display: none; }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    order: 2;
+    margin-left: auto;
+    gap: .25rem;
+    align-items: center;
+  }
+
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    padding: .75rem 1rem;
+    min-height: 40px;
+    border-bottom: 0;
+    border-radius: 6px;
+    position: relative;
+    z-index: 3;
+    color: var(--white);
+    font-size: .8125rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+  }
+  .nav a:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .nav a[aria-current="page"] {
+    color: var(--teal);
+  }
+  .nav a[aria-current="page"]::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 6px;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+}
+
+/* ============================================================
+   BUTTONS (global)
+   ============================================================ */
 .btn {
   display: inline-block;
   background: var(--burg);
   color: #fff;
   padding: .7rem 1.25rem;
-  border-radius: 8px; /* Updated from 4px */
+  border-radius: 8px;
   text-decoration: none;
   font: 700 1rem var(--sans);
   border: 2px solid var(--burg);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Add a hover effect for all buttons */
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(90, 32, 34, 0.3);
 }
 
-/* Keep the alt button clear but add a hover effect */
 .btn.alt:hover {
   background: var(--burg);
   color: #fff;
 }
-/* Update the existing .card rule */
+
+/* ============================================================
+   CARDS
+   ============================================================ */
 .card {
   background: var(--grey);
   padding: 1.25rem;
   border: 1px solid #d9dedb;
-  border-radius: 8px; /* Updated from 4px */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Add a hover effect specifically for clickable cards */
 a.card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   border-color: var(--teal);
 }
-/* Update the existing input and select rule */
+
+/* ============================================================
+   FORMS
+   ============================================================ */
 input, select {
   font: inherit;
   padding: .65rem;
   border: 1px solid #6b7777;
-  border-radius: 8px; /* Updated from 4px */
+  border-radius: 8px;
   width: 100%;
   background: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Added transition */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Modern focus state instead of default browser outline */
 input:focus, select:focus {
   outline: none;
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(127, 186, 172, 0.3);
 }
 
-/* Update choice spans */
 .choices span {
   display: block;
   padding: .65rem 1.1rem;
   border: 2px solid var(--deep);
-  border-radius: 8px; /* Updated from 4px */
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.ph{background:var(--grey);border:1px dashed var(--mid);display:grid;place-items:center;min-height:12rem;color:#5b6666;font-size:.9rem;text-align:center}
-.dark .ph{background:#2f4141;color:#d7dede}
-/* Entrance Animations */
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
@@ -148,9 +380,11 @@ input:focus, select:focus {
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Modern Image Cards */
+/* ============================================================
+   CARDS WITH IMAGES
+   ============================================================ */
 .card {
-  padding: 0; /* Remove default padding to allow edge-to-edge images */
+  padding: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -168,7 +402,7 @@ input:focus, select:focus {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card:hover .card-img-wrap img {
-  transform: scale(1.08); /* Attention-grabbing zoom on hover */
+  transform: scale(1.08);
 }
 .card-body {
   padding: 1.25rem;
@@ -177,12 +411,13 @@ input:focus, select:focus {
   flex-grow: 1;
 }
 
-/* DARTS specific compact image wrapper */
 .card-img-wrap.compact {
-  height: 120px; 
+  height: 120px;
 }
 
-/* Stylised standalone images */
+/* ============================================================
+   STANDALONE IMAGES
+   ============================================================ */
 .image-block {
   border-radius: 12px;
   overflow: hidden;
@@ -192,10 +427,13 @@ input:focus, select:focus {
 .image-block:hover {
   transform: translateY(-4px);
 }
-/* Stunning Inner-Page Banners */
+
+/* ============================================================
+   PAGE BANNERS
+   ============================================================ */
 .page-banner {
   position: relative;
-  min-height: 50vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -204,7 +442,11 @@ input:focus, select:focus {
   overflow: hidden;
 }
 
-/* Gradient overlay: solid deep green on the left fading to transparent on the right */
+.home-hero {
+  min-height: 95vh;
+  min-height: 95svh;
+}
+
 .page-banner::before {
   content: '';
   position: absolute;
@@ -231,6 +473,20 @@ input:focus, select:focus {
   line-height: 1.1;
 }
 
+.page-banner .btn {
+  padding: 1rem 2rem;
+  min-height: 56px;
+  font-size: 1.125rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.page-banner .btn + .btn {
+  margin-left: .75rem;
+}
+
 .page-banner .eyebrow {
   color: var(--teal);
   font-size: 0.9rem;
@@ -241,11 +497,14 @@ input:focus, select:focus {
   color: #d7dede;
   font-size: 1.2rem;
 }
-/* --- Modern Footer Alignment --- */
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 .ftr {
-  background: var(--deep); 
+  background: var(--deep);
   color: var(--white);
-  padding: 4rem 0 2rem; 
+  padding: 4rem 0 2rem;
   font-size: 0.9rem;
 }
 
@@ -257,10 +516,9 @@ input:focus, select:focus {
   margin-bottom: 1.5rem;
 }
 
-/* Bulleted list styling replicating the design */
 .ftr-links {
-  list-style: none; 
-  padding: 0; 
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
@@ -272,9 +530,8 @@ input:focus, select:focus {
   transition: color 0.2s ease;
 }
 
-/* Adds the subtle diamond/bullet before links */
 .ftr-links a::before {
-  content: '❖ '; 
+  content: '❖ ';
   color: var(--teal);
   font-size: 0.75rem;
   margin-right: 0.5rem;
@@ -284,7 +541,6 @@ input:focus, select:focus {
   color: var(--white);
 }
 
-/* Bottom Bar Divider and Layout */
 .ftr-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 2rem;
@@ -310,7 +566,6 @@ input:focus, select:focus {
   color: var(--teal);
 }
 
-/* Boxed back-to-top button on the right */
 .back-to-top {
   display: inline-flex;
   align-items: center;
@@ -328,15 +583,4 @@ input:focus, select:focus {
   background: rgba(255, 255, 255, 0.1);
   color: var(--white);
   border-color: var(--teal);
-}
-.hdr {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  /* 90% opacity version of var(--deep) #253434 */
-  background: rgba(37, 52, 52, 0.9); 
-  /* Adds a frosted glass effect to blur the content scrolling underneath */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
